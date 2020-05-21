@@ -9,3 +9,6 @@
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+
+### ignore test.py 用來做範例，開始的程式
+test.py
