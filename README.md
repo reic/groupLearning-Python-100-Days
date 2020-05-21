@@ -8,7 +8,7 @@
 
 ## 如何參與計畫
 
-如果想要參與這一個活動的，請註冊 Github 帳號，再寄 email 給 [reic](mailto:reic.wang@gmail.com)。
+如果想要參與這一個活動的，請註冊 Github 帳號，再寄 email 給 [reic](mailto:reic.wang@gmail.com) 告訴我你的 github 帳號或是註冊 github 的 email。
 
 ## 參與者簽名
 
@@ -27,6 +27,6 @@ reic(R),
 * VS Code.exe 即是由 Microsfot 推出的免費版本的編輯器。(Reic 比較推薦這一套，可以結合 Git 使用)
 * Jupyter Notebook.exe 執行後，透過網頁開始練習。(這一套在做範例的時候比較方便，但是不利於此專案繳交作業)
 
-# 如何使用 Git 在 VS Code 提交進度
+## 如何使用 Git 在 VS Code 提交進度
 
 需要下載 git 和修改 Winpython 的 script ，實現目的。
