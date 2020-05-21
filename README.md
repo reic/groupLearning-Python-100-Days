@@ -25,4 +25,4 @@ reic(R),
 
 # 如何使用 Git 在 VS Code 提交進度
 
-建構中...
+需要下載 git 和修改 Winpython 的 script ，實現目的。
