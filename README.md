@@ -14,7 +14,11 @@
 
 reic(R),
 
-# 運用 Winpython 建立學習 Python 的環境
+# 參與學習計畫的前置工作
+
+學習計畫，需要準備可以練習 python 環境和可以提交進度的 git 設定，本文將會依序介紹。
+
+## 運用 Winpython 建立學習 Python 的環境
 
 在學習教材已經有介紹不同平台的工具，但是那些都太複雜了。多數參與學習計畫的人是在 Windows 的平台，建議一開始不需要耗費太多的時間去建置使用的環境，直接下載 [WinPython](https://winpython.github.io/) 的 [WinPython64-3.7.7.0cod](https://github.com/winpython/winpython/releases/download/2.3.20200319/Winpython64-3.7.7.0cod.exe) = Python 3.7 64bit + PyQt5 + Spyder + VSCode 套件組。解壓縮，即完成了初始環境的建置。
 
