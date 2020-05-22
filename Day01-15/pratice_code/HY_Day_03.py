@@ -57,6 +57,12 @@ elif score >= 80 :
     grade = "B"
 elif score >= 70 :
     grade = "C"
-elif score >= 
+elif score >= 60 :
+    grade = "D"
+else:
+    grade = "E"
+
+print( " 類別 : ", grade )
+
 
 
