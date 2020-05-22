@@ -95,7 +95,5 @@ print('面積: %.2f' % area)
 year = int(input(" 請輸入年份 "))
 is_leap = year % 4 == 0 and year % 100 != 0 or \
     year % 400 == 0
-
-
 print(is_leap)
 
