@@ -1,6 +1,6 @@
 
 # python 之禪 
-# import this
+import this
 
 # 螢幕上繪圖
 

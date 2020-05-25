@@ -1,5 +1,5 @@
 
-//TODO
+# //TODO
 
 '''
 
@@ -45,13 +45,51 @@ for j in range ( 1, 101):
 print(sum)
 
 
-# 練習 3 ---------------------------------------------------------------
+# 練習 3 ---# 1~200 之間,隨機數字------------------------------------------------------------
+# break, 中止,跳出循環
+# coutinue, 放棄, 繼續另一循環 
 
+# import random
 
+# # 隨機數字答案
+# answer = random.randint(1,200)
 
+# # 計算猜測的次數
+# counter = 0
 
+# while True:
+#     counter += 1 # 當判斷為True 時, 加計一次
+#     number = int(input(" 輸入數字 "))
+#     if number < answer :
+#         print (" 大一點 ")
+#     elif number > answer : 
+#         print (" 小一點 " )
+#     else:
+#         print (" 正確 ")
+#         break # 跳出迴圈
+# # 計算次數
+# print(" 總共猜 %d 次 " % counter)
 
+#-練習 4 --九九乘法表（循環 + 嵌套）--------------------------------------------------------
+# %d 整數
+# end "\t": 在結尾不換行,加入 tab
 
+for i in range( 1 , 10 ):
+    for j in range( 1, i + 1 ) : 
+        print( " %d * %d = %d " % ( i , j, i*j ) ,end = "\t") 
+    print() # 列印 i 循環的結果 
+    
+# 練習 5--循環控制-----------------------------------------------   
+# 同一循環後才換行
 
+for i in range(10):
+    for j in range( i + 1 ):
+        print("*" , end = "")
+    print()
 
-   
+# 
+for i in range(10, 0 , -1) :
+    for j in range ( i - 1 ):
+        print("*", end = "")
+    print()
+    
