@@ -49,26 +49,26 @@ print(sum)
 # break, 中止,跳出循環
 # coutinue, 放棄, 繼續另一循環 
 
-# import random
+import random
 
-# # 隨機數字答案
-# answer = random.randint(1,200)
+# 隨機數字答案
+answer = random.randint(1,200)
 
-# # 計算猜測的次數
-# counter = 0
+# 計算猜測的次數
+counter = 0
 
-# while True:
-#     counter += 1 # 當判斷為True 時, 加計一次
-#     number = int(input(" 輸入數字 "))
-#     if number < answer :
-#         print (" 大一點 ")
-#     elif number > answer : 
-#         print (" 小一點 " )
-#     else:
-#         print (" 正確 ")
-#         break # 跳出迴圈
-# # 計算次數
-# print(" 總共猜 %d 次 " % counter)
+while True:
+    counter += 1 # 當判斷為True 時, 加計一次
+    number = int(input(" 輸入數字 "))
+    if number < answer :
+        print (" 大一點 ")
+    elif number > answer : 
+        print (" 小一點 " )
+    else:
+        print (" 正確 ")
+        break # 跳出迴圈
+# 計算次數
+print(" 總共猜 %d 次 " % counter)
 
 #-練習 4 --九九乘法表（循環 + 嵌套）--------------------------------------------------------
 # %d 整數
