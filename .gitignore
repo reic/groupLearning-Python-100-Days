@@ -12,3 +12,4 @@ test.py
 python.code-workspace
 HY
 
+*.pyc
