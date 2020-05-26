@@ -1,18 +1,13 @@
 
-# //TODO
-
 '''
 
-Item : Python 100Ds days
+Item : Python 100 days
 Time : 20200525
 
 循環結構:
     1. for...in..: 用在確定執行次數、對容器進行迭代
     2. while : 用在不確定執行次數 , 搭配布林運算, True = go , False = pass
 
-'''
-
-''' 
 # range 寫法 #
 range (101) : 0~100
 range ( 1, 101 ): 1~100
@@ -81,6 +76,8 @@ for i in range( 1 , 10 ):
     
 # 練習 5--循環控制-----------------------------------------------   
 # 同一循環後才換行
+
+# FIXME: 可試不同的寫法
 
 for i in range(10):
     for j in range( i + 1 ):
