@@ -14,6 +14,8 @@
 
 reic(R), Zarro(HY)
 
+
+
 # 參與學習計畫的前置工作
 
 學習計畫，需要準備可以練習 python 環境和可以提交進度的 git 設定，本文將會依序介紹。
@@ -30,3 +32,29 @@ reic(R), Zarro(HY)
 ## 如何使用 Git 在 VS Code 提交進度
 
 需要下載 git 和修改 Winpython 的 script ，實現目的。
+
+###  準備 GIT　的環境
+
+首先至 [GIT 官網](https://git-scm.com/) 下載 [Windows GIT 軟體](https://git-scm.com/download/win)。 WinPython 為 Microsfot Windwos 的可攜軟體(portable)方案，因此建議下載 Git for Windows Portable，並解壓縮即可。
+
+### 整合 GIT 和 VSCODE
+
+假設將 WinPython 和 GIT 都解壓縮在使用者(Tom)的下載，在下載應該會有
+
+* PortableGit ： 位置應該是 C:\Users\Tom\Downloads\PortableGit
+* WPy64-3770 ： 位置應該是 C:\Users\hcwang\Downloads\WPy64-3770, 其中 3770 代表 WinPython 的版本，不同的版本應該會有不同的號碼，本次介紹以 3770 版介紹。
+
+為了完成環境的建置，需要修改 WPy64-3770/scripts/winvscode.bat ，讓 VSCode 編輯器不修改設計，即可使用 GIT。
+
+透過記事本(notepad)開啟 winvscode.bat，並將前幾行更改為
+
+```Batch
+@echo off
+rem launcher for VScode
+call "%~dp0env_for_icons.bat"
+cd /D "%WINPYWORKDIR%"
+set GITENV=C:\Users\Tom\Downloads\PortableGit\cmd
+set PATH=%PATH%;%GITENV%
+```
+
+完成設定後，執行 C:\Users\hcwang\Downloads\WPy64-3770\VS Code.exe 就可開始練習 Python 了。
