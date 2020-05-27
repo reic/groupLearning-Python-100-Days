@@ -46,7 +46,7 @@ reic(R), Zarro(HY)
 
 透過記事本(notepad)開啟 winvscode.bat，並將前幾行更改為
 
-```
+```Batch
 @echo off
 rem launcher for VScode
 call "%~dp0env_for_icons.bat"
