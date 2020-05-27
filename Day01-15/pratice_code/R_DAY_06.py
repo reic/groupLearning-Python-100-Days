@@ -56,23 +56,23 @@ print(add(c=50, a=100, b=200))
 '''
 透過 *num ，做為未定數量的輸入值
 '''
-def add(*num):
+def add1(*num):
     total=0
     for i in num:
         total+=i
     return total
 
-print(add(1, 2, 3))
-print(add(1, 2, 3,7,8,2))
+print(add1(1, 2, 3))
+print(add1(1, 2, 3,7,8,2))
 
 '''
 函數重複定義，會執行最後定義的函數
 '''
-def foo():
-    print("hello")
-def foo():
-    print("goodbye")
-foo()
+# def foo():
+#     print("hello")
+# def foo():
+#     print("goodbye")
+# foo()
 
 '''
 透過 模組，解決 同名數定義的 偵錯問題
@@ -145,7 +145,7 @@ if __name__ =='__main__':
 '''
 變數的作用範圍
 '''
-def foo():
+def foo1():
     b = 'hello'
     # Python中可以在函数内部再定义函数
     def bar():
@@ -158,31 +158,31 @@ def foo():
 if __name__ == '__main__':
     a = 100
     # print(b)  # NameError: name 'b' is not defined
-    foo()
+    foo1()
 
 '''
 變數作用範圍 2
 '''
-def foo():
+def foo2():
     a = 200
     print(a)  # 200
 if __name__ == '__main__':
     a = 100
-    foo()
+    foo2()
     print(a)  # 100
-def foo():
+def foo3():
     global a # 將變數 a 升絡為全域
     a = 200
     print(a)  # 200
 if __name__ == '__main__':
     a = 100
-    foo()
+    foo3()
     print(a)  # 200
 
 '''
 變數作用範圍，例子 3
 '''
-def a():
+def aa():
     i = 1
     def b():
         i = 2
