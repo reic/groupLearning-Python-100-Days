@@ -50,7 +50,7 @@ reic(R), Zarro(HY)
 @echo off
 rem launcher for VScode
 call "%~dp0env_for_icons.bat"
-cd/D "%WINPYWORKDIR%"
+cd /D "%WINPYWORKDIR%"
 set GITENV=C:\Users\Tom\Downloads\PortableGit\cmd
 set PATH=%PATH%;%GITENV%
 ```
