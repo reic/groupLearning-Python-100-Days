@@ -364,10 +364,102 @@ def generate_code1(code_len=4):
             code+=chr(96+random.randint(1,26)) #char(97) 為 a
     return code
 
+'''
+設定一個取得 檔案附檔名的函數
+'''
+def get_suffix(filename, has_dot=False):
+    # has_dot 表 return 是否需要帶 .
+    pos=filename.rfind(".")
+    if pos==-1:
+        return ''
+    index= pos if has_dot else pos+1
+    return filename[index:]
 
+'''
+取得數列中最大的兩個數
+'''
+def get_max2(x):
+    m1,m2=x[0],x[1] 
+    for itm in x:
+        if itm > m1:
+            m1,m2=itm,m1
+        elif itm > m2:
+            m2=itm
+    return m1,m2
+
+'''
+計算 輸入年月日，是一年的第幾天
+'''
+def days_in_year(year=2020,month=1,day=1):
+    def is_leap_year(year):
+        return (year%4==0 and year%100 !=100) or year%400 ==0
+    days_in_month= [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    days=day
+    for i in range(month-1):
+        days+=days_in_month[i]
+    if is_leap_year(year) and month >2:
+        days+=1
+    return days
+'''
+範列程式
+'''
+def which_day(year, month, date):
+    def is_leap_year(year):
+        return (year%4==0 and year%100 !=100) or year%400 ==0
+    days_of_month = [
+        [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+        [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    ][is_leap_year(year)]
+    total = 0
+    for index in range(month - 1):
+        total += days_of_month[index]
+    return total + date
+
+'''
+計算 巴斯卡三角型
+   1
+  1 1
+ 1 2 1
+1 3 3 1
+'''
+def pascal():
+    num = int(input('Number of rows: '))
+    yh = [[]] * num
+    for row in range(len(yh)):
+        yh[row] = [1] * (row + 1)
+        for col in range(len(yh[row])):
+            if col == 0 or col == row:
+                yh[row][col] = 1
+            else:
+                yh[row][col] = yh[row - 1][col] + yh[row - 1][col - 1]
+            print(yh[row][col], end='\t')
+        print()
+
+'''
+案例1：大樂透 1-49 號，開獎。  6 個數字 + 特別號
+randint, sample
+'''
+
+'''
+案例 2：約瑟夫環
+《幸運的基督徒》
+有15個基督徒和15個非基督徒在海上遇險，為了能讓一部分人活下來不得不將其中15個人扔到海裡面去，有個人想了個辦法就是大家圍成一個圈，由某個人開始從1報數，報到9的人就扔到海裡面，他後面的人接著從1開始報數，報到9的人繼續扔到海裡面，直到扔掉15個人。由於上帝的保佑，15個基督徒都倖免於難，問這些人最開始是怎麼站的，哪些位置是基督徒哪些位置是非基督徒。
+'''
 
 if __name__=="__main__":
+    pass
+    # main()
     # prac1()
-    print(generate_code())
-    print(generate_code1(5))
-
+    # print(generate_code())
+    # print(generate_code1(5))
+    # print(get_suffix("test.bat","a"))
+    # print(get_suffix("test.bat"))
+    # max1,max2=get_max2([1,-3,5,2,11,7,9,23])
+    # print(max1,max2)
+    # print(days_in_year(2000, 11, 28))
+    # print(which_day(2000, 11, 28))
+    # print()
+    # print(days_in_year(1981, 12, 31))
+    # print(which_day(1981, 12, 31))
+    # pascal()
+    # print([[]]*4)
