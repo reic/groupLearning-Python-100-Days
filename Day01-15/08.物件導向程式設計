@@ -1,0 +1,14 @@
+# 物件導向程式設計 (Object-oriented programming, OOP)
+
+主要在介紹類別(Class)和物件(Object)
+
+## 心得
+
+* 類別是用 Class(object) 作定義
+* def __init__(self, x,y): __init__ 可做為初始值
+* __str__ 做為預設的輸出形式
+
+
+### 簽名區
+
+reic(R)
