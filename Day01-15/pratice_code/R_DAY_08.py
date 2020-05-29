@@ -113,7 +113,7 @@ class Point(object):
         return "( %s, %s )" % (str(self.x), str(self.y))
 
 
-def main():
+def exe2():
     p1 = Point(3, 5)
     p2 = Point()
     print(p1)
@@ -124,4 +124,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    exe2()
