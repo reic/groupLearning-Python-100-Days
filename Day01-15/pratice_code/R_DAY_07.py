@@ -436,15 +436,59 @@ def pascal():
         print()
 
 '''
-案例1：大樂透 1-49 號，開獎。  6 個數字 + 特別號
+案例1：大樂透 1-49 號，電腦選號
+6 個數字 + 特別號
 randint, sample
 '''
+def lottery():
+    from random import sample
+    num=int(input("要下幾注： "))
+    ball=[ x for x in range(1,50)]
+    for _ in range(num):
+        tick=sample(ball,7)
+        print("\t".join(str(x) for x in tick[0:6]),"\t| ",tick[6])
+
+
 
 '''
 案例 2：約瑟夫環
 《幸運的基督徒》
 有15個基督徒和15個非基督徒在海上遇險，為了能讓一部分人活下來不得不將其中15個人扔到海裡面去，有個人想了個辦法就是大家圍成一個圈，由某個人開始從1報數，報到9的人就扔到海裡面，他後面的人接著從1開始報數，報到9的人繼續扔到海裡面，直到扔掉15個人。由於上帝的保佑，15個基督徒都倖免於難，問這些人最開始是怎麼站的，哪些位置是基督徒哪些位置是非基督徒。
 '''
+def luck1():
+    persons=[i for i in range(1,31)]
+    index,number=0,0
+    while len(persons)>15:
+        number+=1
+        if number==9:
+            persons.pop(index)
+            number=0
+        else:
+            index+=1
+        index%=len(persons)
+    print(persons)
+    print(len(persons))
+    for i in range(1,31):
+        print("基" if i in persons else "非",end='')
+    print()
+
+
+def lucky_demoecode():
+    person=[1]*30
+    counter,index,number=0,0,0
+    while counter<15:
+        if person[index]:
+            number+=1
+            if number==9:
+                person[index]=0
+                counter+=1
+            number%=9
+        index+=1
+        index%=30
+    for item in person:
+        print("基" if item else "非",end='')
+    print()
+
 
 
 '''
@@ -493,7 +537,9 @@ def main():
 
 
 if __name__=="__main__":
-    main()
+    # lottery()
+    luck1()
+    lucky_demoecode()
     pass
     # main()
     # prac1()

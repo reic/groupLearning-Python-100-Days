@@ -13,3 +13,5 @@ python.code-workspace
 HY
 
 *.pyc
+*.csv
+*.txt
