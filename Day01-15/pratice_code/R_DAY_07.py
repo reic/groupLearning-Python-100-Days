@@ -446,7 +446,54 @@ randint, sample
 有15個基督徒和15個非基督徒在海上遇險，為了能讓一部分人活下來不得不將其中15個人扔到海裡面去，有個人想了個辦法就是大家圍成一個圈，由某個人開始從1報數，報到9的人就扔到海裡面，他後面的人接著從1開始報數，報到9的人繼續扔到海裡面，直到扔掉15個人。由於上帝的保佑，15個基督徒都倖免於難，問這些人最開始是怎麼站的，哪些位置是基督徒哪些位置是非基督徒。
 '''
 
+
+'''
+井字棋遊戲
+'''
+import os
+
+
+def print_board(board):
+    print(board['TL'] + '|' + board['TM'] + '|' + board['TR'],'\t TL | TM | TR')
+    print('-+-+-')
+    print(board['ML'] + '|' + board['MM'] + '|' + board['MR'],'\t ML | MM | MR')
+
+    print('-+-+-')
+    print(board['BL'] + '|' + board['BM'] + '|' + board['BR'],'\t BL | BM | BR')
+
+
+def main():
+    init_board = {
+        'TL': ' ', 'TM': ' ', 'TR': ' ',
+        'ML': ' ', 'MM': ' ', 'MR': ' ',
+        'BL': ' ', 'BM': ' ', 'BR': ' '
+    }
+    begin = True
+    while begin:
+        curr_board = init_board.copy()
+        begin = False
+        turn = 'x'
+        counter = 0
+        os.system('clear')
+        print_board(curr_board)
+        while counter < 9:
+            move = input('輪到%s走棋, 請輸入位置: ' % turn).upper()
+            if curr_board[move] == ' ':
+                counter += 1
+                curr_board[move] = turn
+                if turn == 'x':
+                    turn = 'o'
+                else:
+                    turn = 'x'
+            os.system('cls')
+            print_board(curr_board)
+        choice = input('再玩一局?(yes|no)')
+        begin = choice == 'yes'
+
+
+
 if __name__=="__main__":
+    main()
     pass
     # main()
     # prac1()
