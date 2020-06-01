@@ -150,7 +150,7 @@ class 繼承多種關係的說明
 class Person2(object):
     def __init__(self, name, age):
         self._name = name
-        self.__age = age
+        self._age = age
 
     @property
     def age(self):
