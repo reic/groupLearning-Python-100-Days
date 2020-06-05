@@ -194,6 +194,7 @@ def task_handler(curr_list, result_quene):
 def main():
     processes = []
     number_list = [x for x in range(1, 100000001)]
+    start = time()
     result_queue = mp.Queue()
     index = 0
     for _ in range(8):
@@ -202,7 +203,6 @@ def main():
         index += 12500000
         processes.append(p)
         p.start()
-    start = time()
     for p in processes:
         p.join()
     total = 0
