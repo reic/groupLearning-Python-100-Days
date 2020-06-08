@@ -13,3 +13,8 @@ python.code-workspace
 HY
 
 *.pyc
+*.csv
+*.txt
+*.png
+*.json
+*~
