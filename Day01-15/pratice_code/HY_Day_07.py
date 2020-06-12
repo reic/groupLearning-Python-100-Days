@@ -69,6 +69,7 @@ print(s6[-5:-2])
 
 print(s6[5:-1])
 
+print(s6[2:5])
 
 # 字串計算
 # %%
@@ -244,7 +245,7 @@ for val in list_6:
 # 生成器函數 yield------------------------
 # %%
 def fib (n):
-    a, b = 0, 1
+    a, b = 2, 4
     for _ in range(n):
         a, b = b, a+b
         yield a 
@@ -255,6 +256,7 @@ def main():
 
 if __name__ == '__main__' :
     main()
+
 
 
 
