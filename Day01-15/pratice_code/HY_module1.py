@@ -1,20 +1,8 @@
 
 
-
-
-# %%
 def foo():
-    return ('yes')
-
-
-# %%
+        return ('yes')
 
 def bar ():
-    return print('no')
+        return print('no')
 
-
-# %%
-# if __name__ == '__main__':
-#     main()
-
-# %%
