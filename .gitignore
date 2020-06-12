@@ -10,11 +10,12 @@
 ### ignore test.py 用來做範例，開始的程式
 test.py
 python.code-workspace
-HY
-
+test.*
+*.xlsx
 *.pyc
 *.csv
 *.txt
 *.png
+*.jpg
 *.json
 *~

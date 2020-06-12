@@ -34,8 +34,8 @@ def main1():
 def main2():
     # 錯誤無法成功
     sender = '0608412@narlabs.org.tw'
-    receivers = ['hcwang@narlabs.org.tw,reic.wang@gmail.com']
-    message = MIMEText('用 Python 發送郵件測試.', 'utf-8')
+    receivers = ['hcwang@narlabs.org.tw', 'reic.wang@gmail.com']
+    message = MIMEText('用 Python 發送郵件測試.', 'plain', 'utf-8')
     message['From'] = Header("Reic")
     message['To'] = Header('HC')
     message['Subject'] = Header("python sendder", 'utf-8')

@@ -14,8 +14,6 @@
 
 reic(R), Zarro(HY)
 
-
-
 # 參與學習計畫的前置工作
 
 學習計畫，需要準備可以練習 python 環境和可以提交進度的 git 設定，本文將會依序介紹。
@@ -33,7 +31,7 @@ reic(R), Zarro(HY)
 
 需要下載 git 和修改 Winpython 的 script ，實現目的。
 
-###  準備 GIT　的環境
+### 準備 GIT　的環境
 
 首先至 [GIT 官網](https://git-scm.com/) 下載 [Windows GIT 軟體](https://git-scm.com/download/win)。 WinPython 為 Microsfot Windwos 的可攜軟體(portable)方案，因此建議下載 Git for Windows Portable，並解壓縮即可。
 
@@ -48,7 +46,7 @@ reic(R), Zarro(HY)
 
 透過記事本(notepad)開啟 winvscode.bat，並將前幾行更改為
 
-```Batch
+``` Batch
 @echo off
 rem launcher for VScode
 call "%~dp0env_for_icons.bat"
