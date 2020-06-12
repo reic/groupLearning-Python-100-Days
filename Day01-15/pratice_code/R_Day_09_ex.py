@@ -384,7 +384,7 @@ def get_key(card):
     return (card.suite, card.face)
 
 
-def main():
+def main1():
     p = Poker()
     p.shuffle()
     players = [Player('东邪'), Player('西毒'), Player('南帝'), Player('北丐')]
@@ -398,4 +398,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    game1()
