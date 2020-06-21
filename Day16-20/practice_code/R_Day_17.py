@@ -1,3 +1,7 @@
+from contextlib import contextmanager
+from time import perf_counter
+
+
 def select_sort(origin_items):
     '''
     簡單排序法
@@ -315,7 +319,7 @@ def fib3(num):
         yield a
 
 
-def main():
+def func1():
     print(fac(3))
     print(fib2(1))
 
@@ -323,6 +327,35 @@ def main():
     print(*fib3(6))
     # for item in fib3(6):
     #     print(item)
+
+
+def fib(num, results={}):
+    assert num > 0
+    if num in (1, 2):
+        return 1
+    try:
+        return results[num]
+    except KeyError:
+        results[num] = fib(num-1)+fib(num-2)
+        return results[num]
+
+
+@contextmanager
+def timer():
+    try:
+        start = perf_counter()
+        yield
+    finally:
+        end = perf_counter()
+        print(f'{end - start}秒')
+
+
+def main():
+    for num in range(1, 15):
+        # with timer():
+        print(f'{num}: {fib(num)}')
+
+    print(*fib(14))
 
 
 if __name__ == "__main__":
