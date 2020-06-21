@@ -166,7 +166,7 @@ def bin_search(items, key):
     return -1
 
 
-def main():
+def main2():
     items = [35, 97, 12, 68, 55, 73, 81, 40]
     # print(select_sort(items)) # 7次迴圈
     # print(items)
@@ -191,5 +191,141 @@ def main():
     # print(bin_search(quick_sort(items3), 'banana'))
 
 
+'''
+百元百雞
+窮舉法
+'''
+
+'''
+公雞5元，母雞3元，小雞 1 元 3 隻
+用 100 元買 100隻雞， 公雞、母雞、小雞
+'''
+
+
+def quiz1():
+    for x in range(20):
+        for y in range(33):
+            z = 100-x-y
+            if 5*x + 3*y + z//3 == 100 and z % 3 == 0:
+                print(x, y, z)
+
+
+'''
+A、B、C、D、E五人在某天夜裡合夥捕魚 最後疲憊不堪各自睡覺
+第二天A第一個醒來 他將魚分為5份 扔掉多餘的1條 拿走自己的一份
+B第二個醒來 也將魚分為5份 扔掉多餘的1條 拿走自己的一份
+然後C、D、E依次醒來也按同樣的方式分魚 問他們至少捕了多少條魚
+'''
+
+
+def quiz2():
+    fish = 6
+    while True:
+        total = fish
+        enough = True
+        for _ in range(5):
+            if (total-1) % 5 == 0:
+                total = (total-1) // 5*4
+            else:
+                enough = False
+                break
+        if enough:
+            print(fish)
+            break
+        fish += 5
+    #     print(fish)
+
+
+'''
+     價錢 重
+電腦 200, 20
+收音機  20, 4
+鐘 175, 10
+花瓶 50, 2
+書  10, 1
+油畫 90, 9
+背包只能裝 20 kg
+'''
+
+
+class Thing(object):
+    '''物品'''
+
+    def __init__(self, name, price, weight):
+        self.name = name
+        self.price = price
+        self.weight = weight
+
+    @property
+    def values(self):
+        return self.price/self.weight
+
+
+def input_thing():
+    name_str, price_str, weight_str = input().split()
+    return name_str, int(price_str), int(weight_str)
+
+
+def chief_quiz():
+    # max_weight, num_of_things = map(int, input("請輸入2個數字, 用空白間隔：").split())
+    max_weight = 20
+    # print(max_weight, num_of_things)
+    things = [["電腦", 200, 20], ["收音機", 20, 4], [
+        "鐘", 175, 10], ["花瓶", 50, 2], ["書", 10, 1], ["油畫", 90, 9]]
+    all_things = [Thing(*item) for item in things]
+    print([item.name for item in all_things])
+    all_things.sort(key=lambda x: x.values, reverse=True)
+    print([item.name for item in all_things])
+    total_weight = 0
+    total_price = 0
+    for thing in all_things:
+        if total_weight + thing.weight <= max_weight:
+            print(f'小偷拿走了{thing.name}')
+            total_weight += thing.weight
+            total_price += thing.price
+    print(f'總價值: {total_price}美元')
+
+
+'''
+階乘
+n!
+f(n)=f(n-1)+f(n-2)
+1 1 2 3 5 8
+'''
+
+
+def fac(num):
+    assert num >= 0
+    if num in (0, 1):
+        return 1
+    return num * fac(num-1)
+
+
+def fib2(num):
+    a, b = 1, 1
+    for _ in range(num-1):
+        a, b = b, a+b
+    return a
+
+
+def fib3(num):
+    a, b = 0, 1
+    for _ in range(num):
+        a, b = b, a+b
+        yield a
+
+
+def main():
+    print(fac(3))
+    print(fib2(1))
+
+    print([fib2(i) for i in range(1, 6)])
+    print(*fib3(6))
+    # for item in fib3(6):
+    #     print(item)
+
+
 if __name__ == "__main__":
+
     main()
+    # quiz2()
