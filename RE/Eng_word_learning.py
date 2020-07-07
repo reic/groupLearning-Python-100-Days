@@ -23,7 +23,7 @@ class Wordobj(object):
         self.word = word
 
     def __str__(self):
-        return " %s: %d " % (self.word, self.counter)
+        return " %s \t %d " % (self.word, self.counter)
 
 
 def word_count(words, stems={}):
@@ -50,15 +50,10 @@ def main():
     stops_word = ['in', 'of', 'at', 'to']
     words_list = get_words(text)
     stems = word_count(words_list)
-    # for stem in stems.values():
-    #     if stem.counter > 4:
-    #         print(stem.word, stem.counter)
     output_list = [[item.word, item.counter]
                    for item in stems.values() if item.counter >= 4 and item.word not in stops_word]
     output_list.sort(key=lambda x: x[1], reverse=True)
     print(output_list)
-    # for stem in stems:
-    #     print(stem)
 
 
 if __name__ == "__main__":
