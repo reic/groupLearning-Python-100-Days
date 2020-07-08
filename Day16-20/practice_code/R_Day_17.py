@@ -331,22 +331,22 @@ def func1():
 
 def fib(num, results={}):
     assert num > 0
-    if num in (1, 2):
+    if num in (1, 2
         return 1
     try:
         return results[num]
     except KeyError:
-        results[num] = fib(num-1)+fib(num-2)
+        results[num]=fib(num-1)+fib(num-2)
         return results[num]
 
 
 @contextmanager
 def timer():
     try:
-        start = perf_counter()
+        start=perf_counter()
         yield
     finally:
-        end = perf_counter()
+        end=perf_counter()
         print(f'{end - start}秒')
 
 
