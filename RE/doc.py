@@ -19,13 +19,13 @@ def get_doc_words(filename):
 
 
 def unknownwords_to_file(filename, data):
-    text = ", "+', '.join([item.word for item in data.values()])
+    text = ', '.join([item.word for item in data.values()])+"\n"
     with open('./'+filename, "a", encoding='utf-8') as f:
         f.write(text)
 
 
 def main():
-    # 從 word 檔讀取文字， 不認識的字  double underline (ctrl - alt - d) 的字
+    # 從 word 檔讀取文字， 不認識的字  double underline (ctrl - shift - d) 的字
     wordall, unknowns = get_doc_words('test.docx')
     stemlist = word_count(wordall)
     unknown_stemlist = word_count(unknowns)
