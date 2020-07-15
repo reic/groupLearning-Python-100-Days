@@ -3,7 +3,7 @@ from nltk.stem import PorterStemmer
 import re
 
 
-def get_words(data):
+def get_words_old(data):
     words = []
     word = ''  # get word in content
     patten = re.compile(r'[a-zA-Z-\'"]')
@@ -17,6 +17,11 @@ def get_words(data):
     return words
 
 
+def get_words(data, pattern=r'[a-zA-Z]+'):
+    words = re.findall(pattern, data)
+    return words
+
+
 class Wordobj(object):
     def __init__(self, word, counter=1):
         self.counter = counter
@@ -26,7 +31,8 @@ class Wordobj(object):
         return " %s \t %d " % (self.word, self.counter)
 
 
-def word_count(words, stems={}):
+def word_count(words):
+    stems = {}
     ps = PorterStemmer()
     for word in words:
         word = word.lower()
