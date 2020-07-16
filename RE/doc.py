@@ -19,7 +19,7 @@ def get_doc_words(filename):
 
 
 def unknownwords_to_file(filename, data):
-    text = ", "+', '.join([item.word for item in data.values()])
+    text = ', '.join([item.word for item in data.values()])+" \n"
     with open('./'+filename, "a", encoding='utf-8') as f:
         f.write(text)
 
@@ -33,9 +33,12 @@ def main():
     for item in unknown_stemlist:
         counter += stemlist[item].counter
         unknown_stemlist[item].word = stemlist[item].word
+        unknown_stemlist[item].counter = stemlist[item].counter
     accident_rate = counter/len(wordall)*100
-    print(counter, len(wordall))
-    print("意外率 %.2f " % accident_rate)
+    # print(counter, len(wordall))
+    print(counter)
+    print({item.word: item.counter for item in unknown_stemlist.values()})
+    print("意外率 %.2f %%" % accident_rate)
 
     # 將新的單字寫入檔案
     unknownwords_to_file('wordlearn.txt', unknown_stemlist)
