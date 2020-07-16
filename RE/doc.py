@@ -27,6 +27,7 @@ def unknownwords_to_file(filename, data):
 def main():
     # 從 word 檔讀取文字， 不認識的字  double underline (ctrl - shift - d) 的字
     wordall, unknowns = get_doc_words('test.docx')
+    print(wordall)
     stemlist = word_count(wordall)
     unknown_stemlist = word_count(unknowns)
     counter = 0
