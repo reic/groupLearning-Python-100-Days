@@ -1,6 +1,7 @@
 from nltk.stem import PorterStemmer
 # from nltk.tokenize import sent_tokenize, word_tokenize
 import re
+import os
 
 
 def get_words_old(data):
@@ -50,16 +51,48 @@ def word_count(words):
     return stems
 
 
+def english_words_left(words_list, output_list, word_learn=6):
+    ps = PorterStemmer()
+    learn_list = [ps.stem(i[0]) for i in output_list[0:word_learn]]
+
+    content = list(filter(lambda item: ps.stem(
+        item) not in learn_list, words_list))
+    return content
+
+
 def main():
-    with open('English.txt', 'r', encoding='utf-8') as f:
+    filename = 'English_tank.txt'
+    # get English Word tank
+    with open(filename, 'r', encoding='utf-8') as f:
         text = f.read()
+    words_list = get_words(text, r'[a-zA-Z-\'"]+')
+    # get English word_new
+    filename_learn = "English_from_doc.txt"
+    with open(filename_learn, 'r', encoding='utf-8') as f:
+        text = f.read()
+        words_list.extend(get_words(text, r'[a-zA-Z-\'"]+'))
+
     stops_word = ['in', 'of', 'at', 'to']
-    words_list = get_words(text)
     stems = word_count(words_list)
     output_list = [[item.word, item.counter]
                    for item in stems.values() if item.counter >= 4 and item.word not in stops_word]
     output_list.sort(key=lambda x: x[1], reverse=True)
-    print(output_list)
+    counter = 0
+    text = ''
+    for i in output_list[:6]:
+        counter += i[1]
+        text += i[0]+"\n"
+
+    with open("English_need_learn.txt", 'w', encoding='utf-8') as f:
+        f.write(text)
+
+    print(counter)
+    words_left = english_words_left(words_list, output_list)
+    print("原始字數: {:5d}, 移除學習中字數: {:5d}".format(
+        len(words_list), len(words_left)))
+    os.system('copy %s %s_bak.txt' % (filename, filename[:-4]))
+    with open(filename, 'w', encoding='utf-8') as f:
+        f.write(', '.join(words_left))
 
 
 if __name__ == "__main__":

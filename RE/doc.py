@@ -43,8 +43,9 @@ def main():
     print("不熟悉的單字 %2d" % len(unknown_stemlist))
     print("意外率 %.2f %%" % accident_rate)
 
+    filename = "English_from_doc.txt"
     # 將新的單字寫入檔案
-    unknownwords_to_file('wordlearn.txt', unknown_stemlist)
+    unknownwords_to_file(filename, unknown_stemlist)
 
 
 if __name__ == "__main__":
