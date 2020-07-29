@@ -2,6 +2,7 @@ from nltk.stem import PorterStemmer
 # from nltk.tokenize import sent_tokenize, word_tokenize
 import re
 import os
+from datetime import datetime
 
 
 def get_words_old(data):
@@ -61,7 +62,7 @@ def english_words_left(words_list, output_list, word_learn=6):
 
 
 def main():
-    filename = 'English_tank.txt'
+    filename = 'English.txt'
     # get English Word tank
     with open(filename, 'r', encoding='utf-8') as f:
         text = f.read()
@@ -90,7 +91,8 @@ def main():
     words_left = english_words_left(words_list, output_list)
     print("原始字數: {:5d}, 移除學習中字數: {:5d}".format(
         len(words_list), len(words_left)))
-    os.system('copy %s %s_bak.txt' % (filename, filename[:-4]))
+    os.system('copy %s %s_%s.txt' %
+              (filename, filename[:-4], datetime.now().strftime("%Y%m%d")))
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(', '.join(words_left))
 
