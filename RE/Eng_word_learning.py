@@ -62,6 +62,7 @@ def english_words_left(words_list, output_list, word_learn=6):
 
 
 def main():
+    min_counter = 6  # 當出現超過  min_coutner 的數值，才會建議背下單字
     filename = 'English.txt'
     # get English Word tank
     with open(filename, 'r', encoding='utf-8') as f:
@@ -76,7 +77,7 @@ def main():
     stops_word = ['in', 'of', 'at', 'to']
     stems = word_count(words_list)
     output_list = [[item.word, item.counter]
-                   for item in stems.values() if item.counter >= 4 and item.word not in stops_word]
+                   for item in stems.values() if item.counter >= min_counter and item.word not in stops_word]
     output_list.sort(key=lambda x: x[1], reverse=True)
     counter = 0
     text = ''
