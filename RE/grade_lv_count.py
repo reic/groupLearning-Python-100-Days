@@ -6,15 +6,16 @@ def main():
         content.pop()
     min_value = min(content)
     max_value = max(content)
-    div_count = int((float(max_value)-float(min_value))//0.3)+1
+    # div_count = int((float(max_value)-float(min_value))//0.3)+1
+    div_count = int((float(max_value)-0.0)//0.3)+1
     print(div_count)
     nums = [0 for _ in range(div_count)]
     print(len(nums))
     for itm in content:
-        index = int((float(itm)-float(min_value))//0.3)
+        index = int((float(itm)-0.0)//0.3)
         nums[index] += 1
     print("min= %s, max=%s" % (min_value, max_value))
-    rangenum = float(min_value)
+    rangenum = 0.0
     strings = ''
     for itm in nums:
         strings += "{:.1f}~{:.1f} \t {}\n".format(rangenum, rangenum+0.3, itm)
@@ -25,4 +26,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # a = [None] * 15
+    # a[0] = int(a[0] or 0) + 1
+    # print(a)
     pass
