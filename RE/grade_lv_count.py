@@ -1,6 +1,6 @@
 # 用來計算不同級分的人數
-def main():
-    with open("1.txt", 'r', encoding='utf-8') as f:
+def main(fname):
+    with open(fname, 'r', encoding='utf-8') as f:
         content = f.read().split("\n")
     if content[-1] == '':
         content.pop()
@@ -20,12 +20,15 @@ def main():
     for itm in nums:
         strings += "{:.1f}~{:.1f} \t {}\n".format(rangenum, rangenum+0.3, itm)
         rangenum += 0.3
-    with open("2.txt", "w", encoding='utf-8') as f:
+    with open(fname[:-4]+"_output.txt", "w", encoding='utf-8') as f:
         f.write(strings)
 
 
 if __name__ == "__main__":
-    main()
+    filenames = ['1072.txt', '1081.txt', '1082.txt']
+    for fname in filenames:
+        main(fname)
+
     # a = [None] * 15
     # a[0] = int(a[0] or 0) + 1
     # print(a)
