@@ -47,7 +47,7 @@ def xlsx():
                 distrubs[0] += 1
             else:
                 index = (i-1.6)//0.3
-                if (i-1.6) % 0.3 > 0:
+                if not np.isclose((i-1.6) % 0.3, 0):
                     index += 1
                 distrubs[int(index)] += 1
 
@@ -57,6 +57,7 @@ def xlsx():
     ot = output.transpose()
 
     writer = pd.ExcelWriter('output.xlsx')
+
     ot.to_excel(writer, sheet_name="同意公布成績")
     # writer.save()
     output = []
@@ -69,7 +70,7 @@ def xlsx():
                 distrubs[0] += 1
             else:
                 index = (i-1.6)//0.3
-                if (i-1.6) % 0.3 > 0:
+                if not np.isclose((i-1.6) % 0.3, 0):
                     index += 1
                 distrubs[int(index)] += 1
 
@@ -80,6 +81,7 @@ def xlsx():
     # writer=pd.ExcelFile('output.xlsx')
     ot.to_excel(writer, sheet_name="不公布成績")
     writer.save()
+    writer.close()
 
 
 if __name__ == "__main__":
