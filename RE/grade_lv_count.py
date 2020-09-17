@@ -1,4 +1,7 @@
 # 用來計算不同級分的人數
+import pandas as pd
+
+
 def main():
     with open("1.txt", 'r', encoding='utf-8') as f:
         content = f.read().split("\n")
@@ -25,7 +28,7 @@ def main():
 
 
 def xlsx():
-    import pandas as pd
+
     import numpy as np
     sheet_name = ['107下', '108上', '108下']
     file_read = pd.read_excel("成績中位數.xlsx", sheet_name=sheet_name)
@@ -46,7 +49,7 @@ def xlsx():
             if i <= 1.6:
                 distrubs[0] += 1
             else:
-                index = (i-1.6)//0.3
+                index = (i-1.6)//0.
                 if not np.isclose((i-1.6) % 0.3, 0):
                     index += 1
                 distrubs[int(index)] += 1
@@ -56,9 +59,9 @@ def xlsx():
     output = pd.DataFrame(output, index=sheet_name, columns=columns)
     ot = output.transpose()
 
-    writer = pd.ExcelWriter('output.xlsx')
-
-    ot.to_excel(writer, sheet_name="同意公布成績")
+    # writer = pd.ExcelWriter('output.xlsx')
+    with pd.ExcelWriter('output.xlsx') as writer:
+        ot.to_excel(writer, sheet_name="同意公布成績")
     # writer.save()
     output = []
     for itm in sheet_name:
@@ -79,9 +82,8 @@ def xlsx():
     output = pd.DataFrame(output, index=sheet_name, columns=columns)
     ot = output.transpose()
     # writer=pd.ExcelFile('output.xlsx')
-    ot.to_excel(writer, sheet_name="不公布成績")
-    writer.save()
-    writer.close()
+    with pd.ExcelWriter('output.xlsx', mode="a") as writer:
+        ot.to_excel(writer, sheet_name="不公布成績")
 
 
 if __name__ == "__main__":
