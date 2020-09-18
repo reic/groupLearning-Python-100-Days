@@ -1,6 +1,6 @@
 # 群體的 Python 100 天學習記錄
 
-這一個專案使用的教材是由骆昊發表在 Github 的 [Python - 100天从新手到大师](https://github.com/jackfrued/Python-100-Days)。
+這一個專案使用的教材是由骆昊發表在 Github 的 [Python - 100 天从新手到大师](https://github.com/jackfrued/Python-100-Days)。
 
 # How-To
 
@@ -24,14 +24,14 @@ reic(R), Zarro(HY)
 
 解壓縮後，裡面已經有兩個推薦使用的練習軟體 Jupyter Notebook.exe 和 VS Code.exe。參與學習計畫的人，
 
-* VS Code.exe 即是由 Microsfot 推出的免費版本的編輯器。(Reic 比較推薦這一套，可以結合 Git 使用)
-* Jupyter Notebook.exe 執行後，透過網頁開始練習。(這一套在做範例的時候比較方便，但是不利於此專案繳交作業)
+- VS Code.exe 即是由 Microsfot 推出的免費版本的編輯器。(Reic 比較推薦這一套，可以結合 Git 使用)
+- Jupyter Notebook.exe 執行後，透過網頁開始練習。(這一套在做範例的時候比較方便，但是不利於此專案繳交作業)
 
 ## 如何使用 Git 在 VS Code 提交進度
 
 需要下載 git 和修改 Winpython 的 script ，實現目的。
 
-### 準備 GIT　的環境
+### 準備 GIT 　的環境
 
 首先至 [GIT 官網](https://git-scm.com/) 下載 [Windows GIT 軟體](https://git-scm.com/download/win)。 WinPython 為 Microsfot Windwos 的可攜軟體(portable)方案，因此建議下載 Git for Windows Portable，並解壓縮即可。
 
@@ -39,14 +39,14 @@ reic(R), Zarro(HY)
 
 假設將 WinPython 和 GIT 都解壓縮在使用者(Tom)的下載，在下載應該會有
 
-* PortableGit ： 位置應該是 C:\Users\Tom\Downloads\PortableGit
-* WPy64-3770 ： 位置應該是 C:\Users\hcwang\Downloads\WPy64-3770, 其中 3770 代表 WinPython 的版本，不同的版本應該會有不同的號碼，本次介紹以 3770 版介紹。
+- PortableGit ： 位置應該是 C:\Users\Tom\Downloads\PortableGit
+- WPy64-3770 ： 位置應該是 C:\Users\hcwang\Downloads\WPy64-3770, 其中 3770 代表 WinPython 的版本，不同的版本應該會有不同的號碼，本次介紹以 3770 版介紹。
 
 為了完成環境的建置，需要修改 WPy64-3770/scripts/winvscode.bat ，讓 VSCode 編輯器不修改設計，即可使用 GIT。
 
 透過記事本(notepad)開啟 winvscode.bat，並將前幾行更改為
 
-``` Batch
+```Batch
 @echo off
 rem launcher for VScode
 call "%~dp0env_for_icons.bat"
@@ -56,3 +56,13 @@ set PATH=%PATH%;%GITENV%
 ```
 
 完成設定後，執行 C:\Users\hcwang\Downloads\WPy64-3770\VS Code.exe 就可開始練習 Python 了。
+
+# 學習說明
+
+下列兩則是參考 jackfrued 的 Python 100 Days 專案
+
+## Day01~15 - [Python 語言基礎](https://github.com/jackfrued/Python-100-Days/tree/master/Day01-15)
+
+## Day16~20 - [Python 語言進階](https://github.com/jackfrued/Python-100-Days/blob/master/Day16-20/16-20.Python%E8%AF%AD%E8%A8%80%E8%BF%9B%E9%98%B6.md)
+
+## Day21~30 - [Python 常用套件練習](https://github.com/reic/groupLearning-Python-100-Days/tree/master/Day16-20)
