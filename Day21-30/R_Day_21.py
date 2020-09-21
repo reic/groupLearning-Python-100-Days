@@ -36,7 +36,7 @@ def main():
     batchfilename = 'output.bat'  # batchfilename 在 cmd 下執行的
     if not os.path.exists(sample_path):
         os.mkdir(sample_path)
-    make_sample_file(sample_path)
+    # make_sample_file(sample_path)
     # 建立 batch file in UTF-8
     create_batch(sample_path, target_path, batchfilename)
     # 若是檔案名稱有中文，建議再用 notepad 將 batch file 轉成 ANSI 的編碼
