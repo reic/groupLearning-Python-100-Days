@@ -18,7 +18,7 @@ def convert_pdf_2_text(path):
     with open(path, "rb") as fp:
 
         #         for page in PDFPage.get_pages(fp, set()):
-        counter = 0
+
         maxpages = 3
         for page in PDFPage.get_pages(fp, set(), maxpages=maxpages):
             interpreter.process_page(page)
@@ -64,7 +64,7 @@ def main():
 
     path = 'e:/%s/' % (str(year))
     files = getFileList(path)
-    end = 30
+
     counter = 1
     with open(path+"/output.bat", "w", encoding='utf-8') as f:
         f.write('')

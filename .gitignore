@@ -8,16 +8,11 @@
 .history
 
 ### ignore test.py 用來做範例，開始的程式
-test.py
 python.code-workspace
 test.*
-*.xlsx
+English*.txt
 *.pyc
-*.csv
-*.txt
-*.png
-*.jpg
-*.json
+.unotes/*
+testdata/*
 *~
-*.docx
 ~*.tmp
