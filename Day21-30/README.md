@@ -31,3 +31,7 @@ if __name__ == '__main__':
     main()
     pass
 ```
+
+## Day 21 文字檔的應用
+
+製作氣象局的年均溫查詢資料，使用到 pandas, numpy 協作完成相關的工作。[範例檔 R_Day_22.py]()

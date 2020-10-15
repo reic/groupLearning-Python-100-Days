@@ -14,7 +14,7 @@ test.*
 *.xlsx
 *.pyc
 *.csv
-*.txt
+/*.txt
 *.png
 *.jpg
 *.json
