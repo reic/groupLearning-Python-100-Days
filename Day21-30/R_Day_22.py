@@ -47,7 +47,7 @@ def main():
         if area == -1:
             break
         disp_temp(climate_data[area])
-        x = input("請按 Enter 回主選單")
+        input("請按 Enter 回主選單")
 
 
 if __name__ == "__main__":

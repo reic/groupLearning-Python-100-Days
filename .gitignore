@@ -12,15 +12,10 @@ python.code-workspace
 test.*
 English*.txt
 *.pyc
-<<<<<<< HEAD
-*.csv
+/*.csv
 /*.txt
 *.png
 *.jpg
 *.json
-=======
-.unotes/*
-testdata/*
->>>>>>> 80752e710822f6f0eb60e24861fea70874edf753
 *~
 ~*.tmp
