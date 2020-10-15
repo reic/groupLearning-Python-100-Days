@@ -32,6 +32,16 @@ if __name__ == '__main__':
     pass
 ```
 
-## Day 21 文字檔的應用
+## Day 22 文字檔的應用
 
-製作氣象局的年均溫查詢資料，使用到 pandas, numpy 協作完成相關的工作。[範例檔 R_Day_22.py]()
+### csv 作為查詢資料
+
+製作氣象局的年均溫查詢資料，使用到 pandas, numpy 協作完成相關的工作。
+
+[範例檔 R_Day_22.py](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/practice_code/R_Day_22.py)
+
+### 取得中油浮動油價的變化資料
+
+使用了 requests, bs4.BeautifulSoup, pandas 三個模組，最終將資料轉換為 pandas 的 DataFrame 資料，以利閱讀。
+
+[範例檔 R_Day_22_1.py](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/practice_code/R_Day_22_1.py)
