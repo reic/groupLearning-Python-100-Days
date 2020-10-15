@@ -32,6 +32,9 @@ if __name__ == '__main__':
     pass
 ```
 
+撰寫程式，在 windows 產生一個 .bat 檔，可以將目錄、子目錄、子子目錄...下的檔案，移至特定的資料夾。
+[範例檔 R_Day_21.py](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/practice_code/R_Day_21.py)
+
 ## Day 22 文字檔的應用
 
 ### csv 作為查詢資料
