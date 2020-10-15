@@ -10,6 +10,7 @@ def get_clipboard():
     # 整理取得的資料，並形成 csv 檔
     filename = "./Day21-30/data/climate.csv"
     # 新的資料最後 2 欄為平均溫的統計區間，因為用不到，所以就不儲至 csv 檔
+    # 寫入 csv 檔的時候，不寫入 header 和 index ，所以 header=None, index=None
     pd.DataFrame(data[:, :-2]).to_csv(filename, header=None, index=None)
     tmp = data[:, :-2]
     climate_data = list(tmp)
@@ -39,6 +40,7 @@ def main():
     # get from clipbboard()
     # climate_data=get_clipboard()
     filename = "./Day21-30/data/climate.csv"
+    # csv 檔沒有 header ，所以需要增加 header=None
     climate_data = pd.read_csv(filename, header=None).values
     # print(climate_data)
     while True:
