@@ -2,49 +2,11 @@
 
 ## Day 21 作業系統套件
 
-內件套件 os、shutil 的使用練習。
-
-首先，建立操作練習的範例檔。在工作環境的資料夾下面，建立一個 sample 的資料夾，並於 sample 資料夾中建立 sample/00 ~ 09 等 10 個資料夾，每一個資料夾下面，建立和子資料夾同名的 .dat 檔案
-
-```python
-import os
-
-def make_sample_file(path, num=10):
-    # 建立檔案處理的範例檔
-    for filename in range(num):
-        # 建立 sample/00/00.dat ~ sample/09/09.dat 的檔案
-        subpath = "./%s/%02d" % (path, filename)
-        if not os.path.exists(subpath):
-            os.mkdir(subpath)
-        with open("./%s/%02d/%02d.dat" % (path, filename, filename), "w", encoding="utf-8") as f:
-            f.write("This is the %02d file" % filename)
-
-
-def main():
-    sample_path = "sample"
-    if not os.path.exists(sample_path):
-        os.mkdir(sample_path)
-    make_sample_file(sample_path)
-
-
-if __name__ == '__main__':
-    main()
-    pass
-```
-
-撰寫程式，在 windows 產生一個 .bat 檔，可以將目錄、子目錄、子子目錄...下的檔案，移至特定的資料夾。
+內件套件 os、shutil 的使用練習。 撰寫程式，在 windows 產生一個 .bat 檔，可以將目錄、子目錄、子子目錄...下的檔案，移至特定的資料夾。
 [範例檔 R_Day_21.py](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/practice_code/R_Day_21.py)
 
-## Day 22 文字檔的應用
+## Day 22 文字檔查詢和網頁資料擷取
 
-### csv 作為查詢資料
+題目：從中央氣象局抓取每月月均溫的資料，存在 csv 檔。運用 csv 的檔案，製作一個 Python 的查詢工具，可以查詢不同測站的的每個均溫。程式會自動列出可查詢測站的代號和名稱，輸入代號即可得到氣溫量測站 12 個月的月均溫資料。 [範例檔 R_Day_22.py](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/practice_code/R_Day_22.py)
 
-製作氣象局的年均溫查詢資料，使用到 pandas, numpy 協作完成相關的工作。
-
-[範例檔 R_Day_22.py](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/practice_code/R_Day_22.py)
-
-### 取得中油浮動油價的變化資料
-
-使用了 requests, bs4.BeautifulSoup, pandas 三個模組，最終將資料轉換為 pandas 的 DataFrame 資料，以利閱讀。
-
-[範例檔 R_Day_22_1.py](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/practice_code/R_Day_22_1.py)
+題目：透過直接抓取中油的浮動油價網頁，找出 92, 95, 98 汽油有油價資料的 日期、油價價格。 [範例檔 R_Day_22_1.py](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/practice_code/R_Day_22_1.py)
