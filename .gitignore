@@ -19,3 +19,4 @@ English*.txt
 *.json
 *~
 ~*.tmp
+testdata/*
