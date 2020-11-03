@@ -12,7 +12,8 @@ url = "https://vipmember.tmtd.cpc.com.tw/mbwebs/ShowHistoryPrice_oil.aspx"
 
 
 html = requests.get(url).text
-sp = BeautifulSoup(html, 'html.parser')
+# sp = BeautifulSoup(html, 'html.parser')
+sp = BeautifulSoup(html, 'lxml')
 
 '''
 使用萬字元的方法

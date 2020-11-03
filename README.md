@@ -1,6 +1,6 @@
-# 群體的 Python 100 天學習記錄
+# 群體的 Python 天學習記錄
 
-這一個專案使用的教材是由骆昊發表在 Github 的 [Python - 100 天从新手到大师](https://github.com/jackfrued/Python-100-Days)。
+這一個專案使用的教材是由骆昊發表在 Github 的 [Python - 100 天从新手到大师](https://github.com/jackfrued/Python-100-Days)。Day 01-20 即完成基礎應用的學習，再來就可以進入試用化的練習。
 
 # How-To
 
