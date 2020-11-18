@@ -71,6 +71,8 @@ def VoiceToText(path, files, target_path):
 
                 print(text)
                 f.write("%s \n\n" % text)
+                if file == files[-1]:
+                    print("結束翻譯")
             except sr.RequestError as e:
                 print("無法翻譯{0}".format(e))
                 # 兩個 except 是當語音辨識不出來的時候 防呆用的
@@ -91,6 +93,12 @@ if __name__ == "__main__":
     path = "g:\\wav2\\"
     target_path = "g:\\txt2\\"
     files = os.listdir(path)
-    files = files[136:]
-
+    textfiles = os.listdir(target_path)
+    if files[-1][:-4] == textfiles[-1][:-4]:
+        print("所有檔案，都已轉成語音")
+    else:
+        start_pos = 0
+        if len(textfiles) > 0:
+            start_pos = files.index(textfiles[-1][:-4]+".wav")+1
+    files = files[start_pos:]
     VoiceToText(path, files, target_path)
