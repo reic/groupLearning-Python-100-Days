@@ -3,7 +3,6 @@ import speech_recognition as sr
 import os
 import wave
 import numpy as np
-import pylab as plt
 
 
 def CutFile(path, FileName, target_path):
@@ -79,26 +78,41 @@ def VoiceToText(path, files, target_path):
                 # 使用Google的服務
             except LookupError:
                 print("Could not understand audio")
+            except sr.UnknownValueError:
+                print("Error: 無法識別 Audio")
+
+
+def texts_to_one(path, target_file):
+    files = os.listdir(path)
+    with open(target_file, "w", encoding="utf-8") as f:
+        for file in files:
+            with open(os.path.join(path, file), "r", encoding='utf-8') as f2:
+                f.write(f2.read())
+    print("完成合併, 檔案位於 %s " % target_file)
 
 
 if __name__ == "__main__":
     # # Cut Wave Setting
     CutTimeDef = 30  # 以1s截斷檔案
     # # CutFrameNum =0
-    # FileName = "201116_2.wav"
+    # FileName = "20201118.wav"
     # path = "g:\\"
     # target_path = "g:\\wav2\\"
-
     # CutFile(path, FileName, target_path)
-    path = "g:\\wav2\\"
-    target_path = "g:\\txt2\\"
-    files = os.listdir(path)
-    textfiles = os.listdir(target_path)
-    if files[-1][:-4] == textfiles[-1][:-4]:
-        print("所有檔案，都已轉成語音")
-    else:
-        start_pos = 0
-        if len(textfiles) > 0:
-            start_pos = files.index(textfiles[-1][:-4]+".wav")+1
-    files = files[start_pos:]
-    VoiceToText(path, files, target_path)
+
+    # path = "g:\\wav3\\"
+    # target_path = "g:\\txt3\\"
+    # files = os.listdir(path)
+    # textfiles = os.listdir(target_path)
+    # start_pos = 0
+    # if len(textfiles) != 0:
+    #     if files[-1][:-4] == textfiles[-1][:-4]:
+    #         print("所有檔案，都已轉成語音")
+    #     else:
+    #         if len(textfiles) > 0:
+    #             start_pos = files.index(textfiles[-1][:-4]+".wav")+1
+    # files = files[start_pos:]
+    # VoiceToText(path, files, target_path)
+    path = "g:\\txt3\\"
+    target_file = "g:\\text3.txt"
+    texts_to_one(path, target_file)
