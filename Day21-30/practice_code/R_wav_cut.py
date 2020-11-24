@@ -2,6 +2,7 @@
 import speech_recognition as sr
 import os
 import wave
+import json
 import numpy as np
 
 
@@ -91,6 +92,30 @@ def texts_to_one(path, target_file):
     print("完成合併, 檔案位於 %s " % target_file)
 
 
+def texts2otr(path, target_file, audio_name, timeperiod):
+    template = '''<p><span class="timestamp" data-timestamp="{}.000000">{}</span>{}</p><p><br/></p>
+    '''
+    files = os.listdir(path)
+    content = ''
+    files = [path+"\\" + f for f in files if f.endswith(".txt")]
+    with open(target_path, "w", encoding="utf-8") as f:
+
+        for file in files:
+            with open(file, "r", encoding="utf-8") as f2:
+                txt = f2.read().split("\n")
+                if len(txt) < 2:
+                    continue
+                times = int(txt[0].split("-")[1][:-5])*30
+                secs, mins = times % 60, times//60
+                hours = mins//60
+                timeF = "{:02d}:{:02d}:{:02d}".format(hours, mins, secs)
+                content += template.format(times, timeF, txt[1])
+
+        output = {"text": content, "media": audio_name,
+                  "media-time": timeperiod}
+        f.write(json.dumps(output, ensure_ascii=False))
+
+
 if __name__ == "__main__":
     # # Cut Wave Setting
     CutTimeDef = 30  # 以1s截斷檔案
@@ -100,19 +125,19 @@ if __name__ == "__main__":
     # target_path = "g:\\wav2\\"
     # CutFile(path, FileName, target_path)
 
-    # path = "g:\\wav3\\"
-    # target_path = "g:\\txt3\\"
-    # files = os.listdir(path)
-    # textfiles = os.listdir(target_path)
-    # start_pos = 0
-    # if len(textfiles) != 0:
-    #     if files[-1][:-4] == textfiles[-1][:-4]:
-    #         print("所有檔案，都已轉成語音")
-    #     else:
-    #         if len(textfiles) > 0:
-    #             start_pos = files.index(textfiles[-1][:-4]+".wav")+1
-    # files = files[start_pos:]
-    # VoiceToText(path, files, target_path)
-    path = "g:\\txt3\\"
-    target_file = "g:\\text3.txt"
-    texts_to_one(path, target_file)
+    path = "g:\\wav3\\"
+    target_path = "g:\\txt3\\"
+    files = os.listdir(path)
+    textfiles = os.listdir(target_path)
+    start_pos = 0
+    if len(textfiles) != 0:
+        if files[-1][:-4] == textfiles[-1][:-4]:
+            print("所有檔案，都已轉成語音")
+        else:
+            if len(textfiles) > 0:
+                start_pos = files.index(textfiles[-1][:-4]+".wav")+1
+            files = files[start_pos:]
+            VoiceToText(path, files, target_path)
+    # path = "g:\\txt3\\"
+    # target_file = "g:\\text3.txt"
+    # texts_to_one(path, target_file)
