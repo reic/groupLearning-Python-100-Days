@@ -98,7 +98,7 @@ def texts2otr(path, target_file, audio_name, timeperiod):
     files = os.listdir(path)
     content = ''
     files = [path+"\\" + f for f in files if f.endswith(".txt")]
-    with open(target_path, "w", encoding="utf-8") as f:
+    with open(target_file, "w", encoding="utf-8") as f:
 
         for file in files:
             with open(file, "r", encoding="utf-8") as f2:
@@ -120,24 +120,18 @@ if __name__ == "__main__":
     # # Cut Wave Setting
     CutTimeDef = 30  # 以1s截斷檔案
     # # CutFrameNum =0
-    # FileName = "20201118.wav"
-    # path = "g:\\"
-    # target_path = "g:\\wav2\\"
+    FileName = "20201118.wav"
+    path = "g:\\"
+    wav_path = "g:\\wav\\"
     # CutFile(path, FileName, target_path)
 
-    path = "g:\\wav3\\"
-    target_path = "g:\\txt3\\"
-    files = os.listdir(path)
-    textfiles = os.listdir(target_path)
-    start_pos = 0
-    if len(textfiles) != 0:
-        if files[-1][:-4] == textfiles[-1][:-4]:
-            print("所有檔案，都已轉成語音")
-        else:
-            if len(textfiles) > 0:
-                start_pos = files.index(textfiles[-1][:-4]+".wav")+1
-            files = files[start_pos:]
-            VoiceToText(path, files, target_path)
-    # path = "g:\\txt3\\"
-    # target_file = "g:\\text3.txt"
-    # texts_to_one(path, target_file)
+    txt_path = "g:\\txt\\"
+    files = os.listdir(wav_path)
+    VoiceToText(wav_path, files, txt_path)
+
+    target_txtfile = "{}{}.txt".format(path, FileName[:-4])
+    texts_to_one(txt_path, target_txtfile)
+    otr_file = "{}.otr".format(FileName[:-4])
+    with wave.open(path+"\\" + FileName, "rb") as f:
+        params = f.getparams()
+    texts2otr(txt_path, otr_file, FileName, params.nframes)
