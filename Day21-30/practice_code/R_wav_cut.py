@@ -106,8 +106,8 @@ def texts2otr(path, target_file, audio_name, timeperiod):
                 if len(txt) < 2:
                     continue
                 times = int(txt[0].split("-")[1][:-5])*30
-                secs, mins = times % 60, times//60
-                hours = mins//60
+                secs, mins = times % 60, (times//60) % 60
+                hours = (times//60)//60
                 timeF = "{:02d}:{:02d}:{:02d}".format(hours, mins, secs)
                 content += template.format(times, timeF, txt[1])
 
