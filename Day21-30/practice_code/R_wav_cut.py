@@ -57,6 +57,9 @@ def CutFile(path, FileName, target_path):
 
 def VoiceToText(path, files, target_path):
     for file in files:
+        txt_file = "%s\\%s.txt" % (target_path, file[:-4])
+        if os.path.isfile(txt_file):
+            continue
         with open("%s\\%s.txt" % (target_path, file[:-4]), "w", encoding="utf-8") as f:
             f.write("%s:\n" % file)
             r = sr.Recognizer()  # 預設辨識英文
@@ -117,21 +120,25 @@ def texts2otr(path, target_file, audio_name, timeperiod):
 
 
 if __name__ == "__main__":
+    ffmpeg = r"E:\Portable App\PortableApps\WPy64-3850\ffmpeg\bin\ffmpeg"
     # # Cut Wave Setting
     CutTimeDef = 30  # 以1s截斷檔案
     # # CutFrameNum =0
-    FileName = "20201118.wav"
+    mp3Name = "201130_002.MP3"
+    FileName = mp3Name[:-4]+".wav"
     path = "g:\\"
-    wav_path = "g:\\wav\\"
-    # CutFile(path, FileName, target_path)
+    os.system('"{}" -i {}{} {}{}'.format(ffmpeg,
+                                         path, mp3Name, path, FileName))
+    wav_path = "g:\\wav2\\"
+    CutFile(path, FileName, wav_path)
 
-    txt_path = "g:\\txt\\"
+    txt_path = "g:\\txt2\\"
     files = os.listdir(wav_path)
     VoiceToText(wav_path, files, txt_path)
 
     target_txtfile = "{}{}.txt".format(path, FileName[:-4])
     texts_to_one(txt_path, target_txtfile)
-    otr_file = "{}.otr".format(FileName[:-4])
+    otr_file = "{}{}.otr".format(path, FileName[:-4])
     with wave.open(path+"\\" + FileName, "rb") as f:
         params = f.getparams()
     texts2otr(txt_path, otr_file, FileName, params.nframes)
