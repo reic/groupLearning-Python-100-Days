@@ -1,6 +1,7 @@
 
 import speech_recognition as sr
 import os
+import shutil
 import wave
 import json
 import numpy as np
@@ -119,20 +120,32 @@ def texts2otr(path, target_file, audio_name, timeperiod):
         f.write(json.dumps(output, ensure_ascii=False))
 
 
+def reset_dir(path):
+    try:
+        os.mkdir(path)
+    except Exception:
+        shutil.rmtree(path)
+        os.mkdir(path)
+
+
 if __name__ == "__main__":
     ffmpeg = r"E:\Portable App\PortableApps\WPy64-3850\ffmpeg\bin\ffmpeg"
     # # Cut Wave Setting
     CutTimeDef = 30  # 以1s截斷檔案
     # # CutFrameNum =0
-    mp3Name = "201130_002.MP3"
+    mp3Name = "201228_001.MP3"
     FileName = mp3Name[:-4]+".wav"
     path = "g:\\"
+    wav_path = "g:\\wav2\\"
+    txt_path = "g:\\txt2\\"
+    chk = str(input("是否需要 reset wav_path, txt_path ：(y/n)")).lower()
+    if chk == 'y':
+        reset_dir(wav_path)
+        reset_dir(txt_path)
+
     os.system('"{}" -i {}{} {}{}'.format(ffmpeg,
                                          path, mp3Name, path, FileName))
-    wav_path = "g:\\wav2\\"
     CutFile(path, FileName, wav_path)
-
-    txt_path = "g:\\txt2\\"
     files = os.listdir(wav_path)
     VoiceToText(wav_path, files, txt_path)
 
