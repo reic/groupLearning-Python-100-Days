@@ -1,4 +1,4 @@
-
+# !pip3 install SpeechRecognition
 import speech_recognition as sr
 import os
 import shutil
@@ -19,16 +19,16 @@ def CutFile(path, FileName, target_path):
     # 一次性返回所有的WAV檔案的格式資訊，它返回的是一個組元(tuple)：聲道數, 量化位數（byte    單位）, 採
     # 樣頻率, 取樣點數, 壓縮型別, 壓縮型別的描述。wave模組只支援非壓縮的資料，因此可以忽略最後兩個資訊
 
-    print("CutFrameNum=%d" % (CutFrameNum))
+    '''print("CutFrameNum=%d" % (CutFrameNum))
     print("nchannels=%d" % (nchannels))
     print("sampwidth=%d" % (sampwidth))
     print("framerate=%d" % (framerate))
-    print("nframes=%d" % (nframes))
+    print("nframes=%d" % (nframes))'''
     str_data = f.readframes(nframes)
     f.close()  # 將波形資料轉換成陣列
     # Cutnum =nframes/framerate/CutTimeDef
     # 需要根據聲道數和量化單位，將讀取的二進位制資料轉換為一個可以計算的陣列
-    wave_data = np.fromstring(str_data, dtype=np.short)
+    wave_data = np.frombuffer(str_data, dtype=np.short)
     wave_data.shape = -1, 2
     wave_data = wave_data.T
     temp_data = wave_data.T
@@ -52,7 +52,8 @@ def CutFile(path, FileName, target_path):
         f.setsampwidth(sampwidth)
         f.setframerate(framerate)
         # 將wav_data轉換為二進位制資料寫入檔案
-        f.writeframes(temp_dataTemp.tostring())
+        # f.writeframes(temp_dataTemp.tostring())
+        f.writeframes(temp_dataTemp.tobytes())
         f.close()
 
 
@@ -133,7 +134,7 @@ if __name__ == "__main__":
     # # Cut Wave Setting
     CutTimeDef = 30  # 以1s截斷檔案
     # # CutFrameNum =0
-    mp3Name = "201228_001.MP3"
+    mp3Name = "13384025952599.m4a"
     FileName = mp3Name[:-4]+".wav"
     path = "g:\\"
     wav_path = "g:\\wav2\\"
