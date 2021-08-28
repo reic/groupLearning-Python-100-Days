@@ -36,7 +36,7 @@ def year_fig2(xdata, ydata, xlab, ylab):
 
 # 定義區
 # 設定工作目錄
-working_dir = "d:/103-106"
+working_dir = "d:/"
 # GRB 下載的分檔 excel 在工作目錄下的 子目標位置
 grb_dir = "grbdata"
 # GRB 分類合併後的檔案名稱，將放在工作目錄
@@ -55,7 +55,9 @@ except FileExistsError:
     print("%s 的目標已存在" % grb_figdata)
 
 # 執行 xslx 合併檔案
-df = grb_aggr(files)
+# df = grb_aggr(files)
+df = pd.read_excel("D:/grb.xlsx")
+
 
 # 資料處理的工作
 # 僅取出 國科會、科技部的計畫
