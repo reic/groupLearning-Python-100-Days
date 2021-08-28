@@ -36,7 +36,7 @@ def year_fig2(xdata, ydata, xlab, ylab):
 
 # 定義區
 # 設定工作目錄
-working_dir = "g:/grb/"
+working_dir = "d:/"
 # GRB 下載的分檔 excel 在工作目錄下的 子目標位置
 grb_dir = "grbdata"
 # GRB 分類合併後的檔案名稱，將放在工作目錄
@@ -68,11 +68,12 @@ df["主研究領域"] = [itm[0] for itm in df["研究領域"].str.split(";").val
 df["執行單位_new"] = [str(itm[1]).replace("台灣", "臺灣") for itm in df["執行單位名稱"].str.extract(
     r'(國立|.*法人)?(.*大學|.*學院|.*研究院|.*學會|.*學校)').values]
 # 輸出整理過的檔案
-df.to_excel("{}_整理.xlsx".format(grb_xlsFileName[:-4]), index=False)
+df.to_excel("{}_整理.xlsx".format(
+    grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
 
 # 製作畫圖用的 excel 檔案
-year_fig(df, "計畫年度", 1)
-year_fig(df, "研究性質", 1)
+year_fig(df, "計畫年度", 0)
+year_fig(df, "研究性質", 0)
 year_fig(df, ["研究性質", "計畫年度"])
 year_fig(df, "研究領域")
 year_fig(df, "主研究領域")
