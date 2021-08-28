@@ -81,11 +81,21 @@ def main():
     for key, value in wordDict.items():
         outputArry.append([key, value])
     outputArry.sort(key=lambda x: x[1], reverse=True)
+    gephi = []
+    corelation_value = 3
+    for itm in outputArry:
+        if itm[1] < corelation_value:
+            break
+        for _ in range(itm[1]-corelation_value):
+            gephi.append(itm[0])
     outputArry = [f"{itm[0]}\t{itm[1]}" for itm in outputArry]
+
     with open("{}_{}".format("Ouput", filename), "w", encoding="utf-8") as f:
         f.write("\n".join(outputArry))
+    # with open("{}_{}.csv".format("Gephi", filename[:-4]), "w", encoding="utf-8") as f:
+    #     f.write("\n".join(pairword_list))
     with open("{}_{}.csv".format("Gephi", filename[:-4]), "w", encoding="utf-8") as f:
-        f.write("\n".join(pairword_list))
+        f.write("\n".join(gephi))
 
 
 def main2():
@@ -100,7 +110,7 @@ def main2():
     for key, value in singleDict.items():
         outputArry.append([key, value])
     outputArry.sort(key=lambda x: x[1], reverse=True)
-    outputArry = [f"{itm[0]}\t{itm[1]}" for itm in outputArry]
+    outputArry = [f"{itm[1]}\t{itm[0]}" for itm in outputArry]
     with open("{}_{}".format("output_wordcloud", filename), "w", encoding="utf-8") as f:
         f.write("\n".join(outputArry))
 
