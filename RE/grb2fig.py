@@ -19,6 +19,17 @@ def year_fig(df, category, figout=0):
                        '本期經費(千元)'], aggfunc={'本期經費(千元)': ["sum", "count"]}).to_records())
     dft.rename(columns={"('本期經費(千元)', 'count')": "件數",
                         "('本期經費(千元)', 'sum')": "經費(千元)"}, inplace=True)
+    if isinstance(category, list):
+        index_name = category[0]
+        df2 = dft.pivot_table(index=index_name, columns="計畫年度", values=[
+            "件數", "經費(千元)"], fill_value=0)
+        # df2.columns.name = None
+        df2 = df2.reset_index()
+        df2.to_excel(
+            "{}/{}_件數_經費.xlsx".format(grb_figdata, category))
+        df2.to_excel(
+            "{}/{}_件數_經費.xlsx".format(grb_figdata, category))
+        return
     dft.to_excel("{}/{}_件數_經費.xlsx".format(grb_figdata, category), index=False)
     if figout:
         year_fig2(dft[category], dft["件數"], category, "件數")
@@ -36,7 +47,7 @@ def year_fig2(xdata, ydata, xlab, ylab):
 
 # 定義區
 # 設定工作目錄
-working_dir = "g:/grb/"
+working_dir = "g:/compound_semi/"
 # GRB 下載的分檔 excel 在工作目錄下的 子目標位置
 grb_dir = "grbdata"
 # GRB 分類合併後的檔案名稱，將放在工作目錄
@@ -70,12 +81,12 @@ df["執行單位_new"] = [str(itm[1]).replace("台灣", "臺灣") for itm in df[
 # 輸出整理過的檔案
 df.to_excel("{}_整理.xlsx".format(grb_xlsFileName[:-4]), index=False)
 
-# 製作畫圖用的 excel 檔案
-year_fig(df, "計畫年度", 1)
-year_fig(df, "研究性質", 1)
+# # 製作畫圖用的 excel 檔案
+year_fig(df, "計畫年度")
+year_fig(df, "研究性質")
 year_fig(df, ["研究性質", "計畫年度"])
 year_fig(df, "研究領域")
 year_fig(df, "主研究領域")
 year_fig(df, ["主研究領域", "計畫年度"])
-year_fig(df, ["研究領域", "計畫年度"])
+# year_fig(df, ["研究領域", "計畫年度"])
 year_fig(df, "執行單位_new")
