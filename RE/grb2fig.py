@@ -57,7 +57,7 @@ grb_figdata = "data2fig"
 
 os.chdir(working_dir)
 # 取得下載 xlsx 所有檔案名稱
-files = ["{}/{}".format(grb_dir, i) for i in os.listdir(grb_dir)]
+# files = ["{}/{}".format(grb_dir, i) for i in os.listdir(grb_dir)]
 
 # 建立 xlsx 輸出檔的存放目錄
 try:
