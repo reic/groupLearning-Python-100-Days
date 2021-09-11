@@ -14,5 +14,3 @@
 ## [Day 23 操作 SQLite 資料](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/23.%20操作%20sqlite%20資料.md)
 
 問題：透過 firefox SQLite manager 套件，建立一個 scores.sqlite 的資料庫，並建立一個 students 的資料表，然後可以透過 python 新增、更新、刪除、查詢資料。[範例檔 R_Day_23.py](https://github.com/reic/groupLearning-Python-100-Days/blob/master/Day21-30/practice_code/R_Day_23.py)
-
-[[這是什麼]]
