@@ -19,11 +19,27 @@ def year_fig(df, category, figout=0):
                        '本期經費(千元)'], aggfunc={'本期經費(千元)': ["sum", "count"]}).to_records())
     dft.rename(columns={"('本期經費(千元)', 'count')": "件數",
                         "('本期經費(千元)', 'sum')": "經費(千元)"}, inplace=True)
-    # return dft
-    dft.to_excel("{}/{}_件數_經費.xlsx".format(grb_figdata, category), index=False)
-    if figout:
-        year_fig2(dft[category], dft["件數"], category, "件數")
-        year_fig2(dft[category], dft["經費(千元)"], category, "經費(千元)")
+
+
+<< << << < HEAD
+# return dft
+== == == =
+if isinstance(category, list):
+    index_name = category[0]
+    df2 = dft.pivot_table(index=index_name, columns="計畫年度", values=[
+        "件數", "經費(千元)"], fill_value=0)
+    # df2.columns.name = None
+    df2 = df2.reset_index()
+    df2.to_excel(
+        "{}/{}_件數_經費.xlsx".format(grb_figdata, category))
+    df2.to_excel(
+        "{}/{}_件數_經費.xlsx".format(grb_figdata, category))
+    return
+>>>>>> > 000174f59a3c6b53dbf4067ea919f290e82c18f9
+dft.to_excel("{}/{}_件數_經費.xlsx".format(grb_figdata, category), index=False)
+if figout:
+    year_fig2(dft[category], dft["件數"], category, "件數")
+    year_fig2(dft[category], dft["經費(千元)"], category, "經費(千元)")
 
 
 def data_count(df, category, figout=0):
@@ -135,7 +151,7 @@ grb_figdata = "data2fig"
 
 os.chdir(working_dir)
 # 取得下載 xlsx 所有檔案名稱
-files = ["{}/{}".format(grb_dir, i) for i in os.listdir(grb_dir)]
+# files = ["{}/{}".format(grb_dir, i) for i in os.listdir(grb_dir)]
 
 # 建立 xlsx 輸出檔的存放目錄
 try:
