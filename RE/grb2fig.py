@@ -19,27 +19,21 @@ def year_fig(df, category, figout=0):
                        '本期經費(千元)'], aggfunc={'本期經費(千元)': ["sum", "count"]}).to_records())
     dft.rename(columns={"('本期經費(千元)', 'count')": "件數",
                         "('本期經費(千元)', 'sum')": "經費(千元)"}, inplace=True)
-
-
-<< << << < HEAD
-# return dft
-== == == =
-if isinstance(category, list):
-    index_name = category[0]
-    df2 = dft.pivot_table(index=index_name, columns="計畫年度", values=[
-        "件數", "經費(千元)"], fill_value=0)
-    # df2.columns.name = None
-    df2 = df2.reset_index()
-    df2.to_excel(
-        "{}/{}_件數_經費.xlsx".format(grb_figdata, category))
-    df2.to_excel(
-        "{}/{}_件數_經費.xlsx".format(grb_figdata, category))
-    return
->>>>>> > 000174f59a3c6b53dbf4067ea919f290e82c18f9
-dft.to_excel("{}/{}_件數_經費.xlsx".format(grb_figdata, category), index=False)
-if figout:
-    year_fig2(dft[category], dft["件數"], category, "件數")
-    year_fig2(dft[category], dft["經費(千元)"], category, "經費(千元)")
+    if isinstance(category, list):
+        index_name = category[0]
+        df2 = dft.pivot_table(index=index_name, columns="計畫年度", values=[
+            "件數", "經費(千元)"], fill_value=0)
+        # df2.columns.name = None
+        df2 = df2.reset_index()
+        df2.to_excel(
+            "{}/{}_件數_經費.xlsx".format(grb_figdata, category))
+        df2.to_excel(
+            "{}/{}_件數_經費.xlsx".format(grb_figdata, category))
+        return
+    dft.to_excel("{}/{}_件數_經費.xlsx".format(grb_figdata, category), index=False)
+    if figout:
+        year_fig2(dft[category], dft["件數"], category, "件數")
+        year_fig2(dft[category], dft["經費(千元)"], category, "經費(千元)")
 
 
 def data_count(df, category, figout=0):
@@ -60,25 +54,20 @@ def year_fig2(xdata, ydata, xlab, ylab):
 
 
 def columnlinechart(writer, sheet_name, maxrow):
-    # Access the XlsxWriter workbook and worksheet objects from the dataframe.
-    # This is equivalent to the following using XlsxWriter on its own:
-    #
-    #    workbook = xlsxwriter.Workbook('filename.xlsx')
-    #    worksheet = workbook.add_worksheet()
     workbook = writer.book
     worksheet = writer.sheets[sheet_name]
     # Create a chart object.
     chart = workbook.add_chart({'type': 'column'})
 
     # Configure the series of the chart from the dataframe data.
-    chart.add_series({'name': f"={sheet_name}!C1", 'values': f"={sheet_name}!$C$2:$C${maxrow}", 'fill': {
-                     'color': '#808080'}, 'data_labels': {'value': True}, 'gap': 15})
+    chart.add_series({'name': f"={sheet_name}!C1", 'values': f"={sheet_name}!$C$2:$C${maxrow}",
+                      "categories": f"={sheet_name}!$A$2:$A${maxrow}",
+                      'fill': {'color': '#808080'}, 'data_labels': {'value': True}, 'gap': 15})
 
     # 'type': 'column' 即為圖表類別為 line chart
     line_chart = workbook.add_chart({'type': 'line'})
-    line_chart.add_series({'name': f"={sheet_name}!B1", 'values': f"={sheet_name}!$B$2:$B${maxrow}", 'data_labels': {'value': True, "position": "above"},
+    line_chart.add_series({'name': f"={sheet_name}!B1", "categories": f"={sheet_name}!$A$2:$A${maxrow}", 'values': f"={sheet_name}!$B$2:$B${maxrow}", 'data_labels': {'value': True, "position": "above"},
                            'y2_axis': True, "marker": {"type": "circle", "size": "9", "fill": {"color": "white"}}})  # 'y2_axis': 表示是否增加 secondary y-axis
-
     chart.combine(line_chart)  # 將兩張圖 (bar chart & line chart) 組合在一起
 
     chart.set_legend({'position': 'top'})  # legend 位置於圖表下方
@@ -92,11 +81,6 @@ def columnlinechart(writer, sheet_name, maxrow):
 
 
 def barchart(writer, sheet_name, maxrow, maxcolumn):
-    # Access the XlsxWriter workbook and worksheet objects from the dataframe.
-    # This is equivalent to the following using XlsxWriter on its own:
-    #
-    #    workbook = xlsxwriter.Workbook('filename.xlsx')
-    #    worksheet = workbook.add_worksheet()
     workbook = writer.book
     worksheet = writer.sheets[sheet_name]
     # Create a chart object.
@@ -130,6 +114,7 @@ def piechart(writer, sheet_name, maxrow):
 
 
 def yeardiv(dfyears, period):
+    # dfyears 為 df["year"].values 的值
     years = list(set(dfyears))
     start = min(years)
     grouplabel = [f"{itm}~{itm+period-1}" for itm in years[::period]]
@@ -139,99 +124,87 @@ def yeardiv(dfyears, period):
     return groupyear
 
 
-# 定義區
-# 設定工作目錄
-working_dir = "d:/"
-# GRB 下載的分檔 excel 在工作目錄下的 子目標位置
-grb_dir = "energy save"
-# GRB 分類合併後的檔案名稱，將放在工作目錄
-grb_xlsFileName = "grb.xlsx"
-# 做圖用的 xlsx 分檔的輸出位置
-grb_figdata = "data2fig"
+if __name__ == "__main__":
+    # 定義區
+    # 設定工作目錄
+    working_dir = "d:/"
+    # GRB 下載的分檔 excel 在工作目錄下的 子目標位置
+    grb_dir = "sysintegrate"
+    # GRB 分類合併後的檔案名稱，將放在工作目錄
+    grb_xlsFileName = "sys_grb.xlsx"
+    outputfilename = "系統整合output.xlsx"
+    # # 做圖用的 xlsx 分檔的輸出位置
+    # grb_figdata = "data2fig"
 
-os.chdir(working_dir)
-# 取得下載 xlsx 所有檔案名稱
-# files = ["{}/{}".format(grb_dir, i) for i in os.listdir(grb_dir)]
+    os.chdir(working_dir)
+    # 取得下載 xlsx 所有檔案名稱
+    files = ["{}/{}".format(grb_dir, i) for i in os.listdir(grb_dir)]
 
-# 建立 xlsx 輸出檔的存放目錄
-try:
-    os.mkdir(grb_figdata)
-except FileExistsError:
-    print("%s 的目標已存在" % grb_figdata)
+    # # 建立 xlsx 輸出檔的存放目錄
+    # try:
+    #     os.mkdir(grb_figdata)
+    # except FileExistsError:
+    #     print("%s 的目標已存在" % grb_figdata)
 
-# 執行 xslx 合併檔案
-df = grb_aggr(files)
-# df = pd.read_excel("D:/grb.xlsx")
+    # 執行 xslx 合併檔案
+    df = grb_aggr(files)
+    # df = pd.read_excel("D:/grb.xlsx")
 
+    # 資料處理的工作
+    # 僅取出 國科會、科技部的計畫
+    filterlist = ["行政院國家科學委員會", "科技部"]
+    df1 = df[df["計畫主管機關"].isin(filterlist)][['計畫中文名稱', '執行單位名稱', '計畫年度', '計畫主管機關', '研究性質', '研究領域', '本期期間(起)', '本期期間(訖)', '本期經費(千元)',
+                                             '計畫主持人', '共同/協同主持人', '中文關鍵詞', '英文關鍵詞']]
+    # 研究領域，僅取出第一個研究領域 分析
+    df1["主研究領域"] = [itm[0] for itm in df1["研究領域"].str.split(";").values]
+    # 執行機構名稱的清理
+    df1["執行單位_new"] = [str(itm[1]).replace("台灣", "臺灣") for itm in df1["執行單位名稱"].str.extract(
+        r'(國立|.*法人)?(.*大學|.*學院|.*研究院|.*學會|.*學校)').values]
+    # 輸出整理過的檔案
+    df1.to_excel("{}_整理.xlsx".format(
+        grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
 
-# 資料處理的工作
-# 僅取出 國科會、科技部的計畫
+    with pd.ExcelWriter(outputfilename, engine='xlsxwriter') as writer:
+        tmp = data_count(df1, "計畫年度")
+        maxrow = len(tmp)+1
+        tmp.to_excel(writer, sheet_name="計畫年度", index=False)
+        columnlinechart(writer, "計畫年度", maxrow)
 
+        tmp = data_count(df, ["研究性質", "計畫年度"])
+        mask = tmp["研究性質"] == "其他"
+        tmp[~mask].to_excel(writer, sheet_name="研究性質with年度", index=False)
 
-filterlist = ["行政院國家科學委員會", "科技部"]
-df1 = df[df["計畫主管機關"].isin(filterlist)][['計畫中文名稱', '執行單位名稱', '計畫年度', '計畫主管機關', '研究性質', '研究領域', '本期期間(起)', '本期期間(訖)', '本期經費(千元)',
-                                         '計畫主持人', '共同/協同主持人', '中文關鍵詞', '英文關鍵詞']]
-# 研究領域，僅取出第一個研究領域 分析
-df1["主研究領域"] = [itm[0] for itm in df1["研究領域"].str.split(";").values]
-# 執行機構名稱的清理
-df1["執行單位_new"] = [str(itm[1]).replace("台灣", "臺灣") for itm in df1["執行單位名稱"].str.extract(
-    r'(國立|.*法人)?(.*大學|.*學院|.*研究院|.*學會|.*學校)').values]
-# 輸出整理過的檔案
-df1.to_excel("{}_整理.xlsx".format(
-    grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
+        tmp = data_count(df1, ["研究性質", "計畫年度"])
+        mask = tmp["研究性質"] == "其他"
+        tmp = tmp[~mask]
+        tmp.to_excel(writer, sheet_name="MOST 研究性質with年度", index=False)
 
-with pd.ExcelWriter("output.xlsx", engine='xlsxwriter') as writer:
-    tmp = data_count(df1, "計畫年度")
-    maxrow = len(tmp)+1
-    tmp.to_excel(writer, sheet_name="計畫年度", index=False)
-    columnlinechart(writer, "計畫年度", maxrow)
+        groupyear = yeardiv(tmp["計畫年度"].values, 2)
+        tmp["計畫年度"] = groupyear
+        tmp = pd.DataFrame(pd.pivot_table(tmp, index="研究性質",
+                                          values="經費(千元)", columns=["計畫年度"]).to_records())
+        sindex = tmp.index.to_list()
+        sindex[0] = 4
+        tmp.index = sindex
+        tmp.sort_index(inplace=True)
+        tmp.to_excel(writer, sheet_name="MOST 研究性質 with 年度區間", index=False)
+        maxrow = len(tmp)+1
+        maxcolumn = len(tmp.columns)
+        barchart(writer, "MOST 研究性質 with 年度區間", maxrow, maxcolumn)
 
-    tmp = data_count(df, ["研究性質", "計畫年度"])
-    mask = tmp["研究性質"] == "其他"
-    tmp[~mask].to_excel(writer, sheet_name="研究性質with年度", index=False)
+        tmp = data_count(df1, "主研究領域")
+        tmp.sort_values("經費(千元)", ascending=False, inplace=True)
+        maxrow = len(tmp)+1
+        tmp.to_excel(writer, "主研究領域", index=False)
+        if maxrow > 13:
+            maxrow = 13
+        piechart(writer, "主研究領域", maxrow)
 
-    tmp = data_count(df1, ["研究性質", "計畫年度"])
-    mask = tmp["研究性質"] == "其他"
-    tmp = tmp[~mask]
-    tmp.to_excel(writer, sheet_name="MOST 研究性質with年度", index=False)
-
-    groupyear = yeardiv(tmp["計畫年度"].values, 2)
-    tmp["計畫年度"] = groupyear
-    tmp = pd.DataFrame(pd.pivot_table(tmp, index="研究性質",
-                                      values="經費(千元)", columns=["計畫年度"]).to_records())
-    sindex = tmp.index.to_list()
-    sindex[0] = 4
-    tmp.index = sindex
-    tmp.sort_index(inplace=True)
-    tmp.to_excel(writer, sheet_name="MOST 研究性質 with 年度區間", index=False)
-    maxrow = len(tmp)+1
-    maxcolumn = len(tmp.columns)
-    barchart(writer, "MOST 研究性質 with 年度區間", maxrow, maxcolumn)
-
-    tmp = data_count(df1, "主研究領域")
-    tmp.sort_values("經費(千元)", ascending=False, inplace=True)
-    maxrow = len(tmp)+1
-    tmp.to_excel(writer, "主研究領域", index=False)
-    if maxrow > 13:
-        maxrow = 13
-    piechart(writer, "主研究領域", maxrow)
-
-    sheetname = "執行單位_new"
-    tmp = data_count(df1, sheetname)
-    tmp.sort_values("經費(千元)", ascending=False, inplace=True)
-    maxrow = len(tmp)+1
-    tmp.to_excel(writer, sheet_name=sheetname, index=False)
-    if maxrow > 25:
-        maxrow = 25
-    piechart(writer, sheetname, maxrow)
-
-
-# 製作畫圖用的 excel 檔案
-# year_fig(df, "計畫年度", 0)
-# year_fig(df, "研究性質", 0)
-# year_fig(df, ["研究性質", "計畫年度"])
-# year_fig(df, "研究領域")
-# year_fig(df, "主研究領域")
-# year_fig(df, ["主研究領域", "計畫年度"])
-# year_fig(df, ["研究領域", "計畫年度"])
-# year_fig(df, "執行單位_new")
+        sheetname = "執行單位_new"
+        tmp = data_count(df1, sheetname)
+        tmp.sort_values("經費(千元)", ascending=False, inplace=True)
+        maxrow = len(tmp)+1
+        tmp.to_excel(writer, sheet_name=sheetname, index=False)
+        if maxrow > 25:
+            maxrow = 25
+        piechart(writer, sheetname, maxrow)
