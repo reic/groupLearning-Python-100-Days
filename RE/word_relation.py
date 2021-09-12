@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 
 
 def single_word():
@@ -90,11 +91,11 @@ def main():
             gephi.append(itm[0])
     outputArry = [f"{itm[0]}\t{itm[1]}" for itm in outputArry]
 
-    with open("{}_{}".format("Ouput", filename), "w", encoding="utf-8") as f:
+    with open("{}_{}".format("txt/Ouput", filename), "w", encoding="utf-8") as f:
         f.write("\n".join(outputArry))
     # with open("{}_{}.csv".format("Gephi", filename[:-4]), "w", encoding="utf-8") as f:
     #     f.write("\n".join(pairword_list))
-    with open("{}_{}.csv".format("Gephi", filename[:-4]), "w", encoding="utf-8") as f:
+    with open("{}_{}.csv".format("txt/Gephi", filename[:-4]), "w", encoding="utf-8") as f:
         f.write("\n".join(gephi))
 
 
@@ -111,21 +112,32 @@ def main2():
         outputArry.append([key, value])
     outputArry.sort(key=lambda x: x[1], reverse=True)
     outputArry = [f"{itm[1]}\t{itm[0]}" for itm in outputArry]
-    with open("{}_{}".format("output_wordcloud", filename), "w", encoding="utf-8") as f:
+    with open("{}_{}".format("txt/wordcloud", filename), "w", encoding="utf-8") as f:
         f.write("\n".join(outputArry))
 
 
 if __name__ == "__main__":
     os.chdir("d:/")
+    files = [file for file in os.listdir(
+        ".") if (file.endswith("xlsx") and "grb" in file)]
+    for file in files:
+        df = pd.read_excel(file)
+        # print(file)
+        tmp = df[df['中文關鍵詞'].notna()]["中文關鍵詞"]
+        tmp = tmp.values
+        with open(f"{file[:file.rfind('.')]}.txt", "w", encoding="utf-8") as f:
+            f.write("\n".join(tmp))
+    files = [file for file in os.listdir(".") if file.endswith(".txt")]
+    for filename in files:
+        # filename = "keyword.txt"
+        print(filename)
+        with open(filename, "r", encoding="utf-8") as f:
+            keywords = f.read().splitlines()
 
-    filename = "keyword.txt"
-    with open(filename, "r", encoding="utf-8") as f:
-        keywords = f.read().splitlines()
-
-    content = []
-    wordDict = {}
-    pairword_list = []
-    singleDict = {}
-    wordcloud = []
-    main()
-    main2()
+        content = []
+        wordDict = {}
+        pairword_list = []
+        singleDict = {}
+        wordcloud = []
+        main()
+        main2()

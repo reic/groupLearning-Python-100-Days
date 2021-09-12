@@ -129,10 +129,10 @@ if __name__ == "__main__":
     # 設定工作目錄
     working_dir = "d:/"
     # GRB 下載的分檔 excel 在工作目錄下的 子目標位置
-    grb_dir = "sysintegrate"
+    grb_dir = "windturbine"
     # GRB 分類合併後的檔案名稱，將放在工作目錄
-    grb_xlsFileName = "sys_grb.xlsx"
-    outputfilename = "系統整合output.xlsx"
+    grb_xlsFileName = f"{grb_dir[:6]}_grb.xlsx"
+    outputfilename = f"{grb_dir[:6]}_output.xlsx"
     # # 做圖用的 xlsx 分檔的輸出位置
     # grb_figdata = "data2fig"
 
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     df1["主研究領域"] = [itm[0] for itm in df1["研究領域"].str.split(";").values]
     # 執行機構名稱的清理
     df1["執行單位_new"] = [str(itm[1]).replace("台灣", "臺灣") for itm in df1["執行單位名稱"].str.extract(
-        r'(國立|.*法人)?(.*大學|.*學院|.*研究院|.*學會|.*學校)').values]
+        r'(國立|.*法人|行政院)?(.*大學|.*學院|.*研究院|.*學會|.*學校|原子能委員會|食品工業發展研究所|國家同步輻射研究中心|林業試驗所|中醫藥研究所)').values]
     # 輸出整理過的檔案
     df1.to_excel("{}_整理.xlsx".format(
         grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
