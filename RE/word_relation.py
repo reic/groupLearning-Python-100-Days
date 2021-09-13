@@ -30,6 +30,7 @@ def pair_data():
     for itm in keywords:
         if len(itm.strip()) == 0:
             continue
+
         if "；" in itm:
             tmpArray = [context.strip() for context in itm.split(
                 "；") if len(context.strip()) > 0]
@@ -117,9 +118,9 @@ def main2():
 
 
 if __name__ == "__main__":
-    os.chdir("d:/")
-    files = [file for file in os.listdir(
-        ".") if (file.endswith("xlsx") and "grb" in file)]
+    os.chdir("d:/tmp")
+    files = [file for file in os.listdir(".") if (
+        file.endswith("xlsx") and "grb" in file)]
     for file in files:
         df = pd.read_excel(file)
         # print(file)
