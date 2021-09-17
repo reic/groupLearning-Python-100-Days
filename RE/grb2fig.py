@@ -75,7 +75,7 @@ def columnlinechart(writer, sheet_name, maxrow):
     chart.set_x_axis({'major_gridlines': {'visible': False}})
     chart.set_y_axis({'major_gridlines': {'visible': False}})
     # Turn off chart legend. It is on by default in Excel.
-    #chart.set_legend({'position': 'none'})
+    # chart.set_legend({'position': 'none'})
     chart.set_size({'width': 800, 'height': 500})
     # Insert the chart into the worksheet.
     worksheet.insert_chart('F2', chart)
@@ -125,6 +125,13 @@ def yeardiv(dfyears, period):
     return groupyear
 
 
+def checkdict(context, wordDict):
+    if context in wordDict:
+        wordDict[context] += 1
+    else:
+        wordDict[context] = 1
+
+
 def main(grb_dir):
     print(grb_dir)
     grb_xlsFileName = f"{grb_dir[:6]}_grb.xlsx"
@@ -164,8 +171,13 @@ def main(grb_dir):
         mask = tmp["研究性質"] == "其他"
         tmp = tmp[~mask]
         tmp.to_excel(writer, sheet_name="MOST 研究性質with年度", index=False)
+        for j in [4, 3, 2]:
+            yearlen = len(set(tmp["計畫年度"].values))
+            if yearlen % j == 0:
+                divdat = yearlen//j
+                break
 
-        groupyear = yeardiv(tmp["計畫年度"].values, 2)
+        groupyear = yeardiv(tmp["計畫年度"].values, divdat)
         tmp["計畫年度"] = groupyear
         tmp = pd.DataFrame(pd.pivot_table(tmp, index="研究性質",
                                           values="經費(千元)", columns=["計畫年度"]).to_records())
@@ -200,6 +212,7 @@ if __name__ == "__main__":
     # 定義區
     # 設定工作目錄
     working_dir = "d:/tmp"
+    txt_data = "txt"
     os.chdir(working_dir)
     grb_dirs = ["solarcell", "hydrogen",
                 "storeenergy", 'sysintegrate', 'windturbine']
@@ -208,6 +221,11 @@ if __name__ == "__main__":
     grb_figdata = "data2fig"
 
     # # 建立 xlsx 輸出檔的存放目錄
+    try:
+        os.mkdir(txt_data)
+    except FileExistsError:
+        print("%s 的目標已存在" % txt_data)
+
     try:
         os.mkdir(grb_figdata)
     except FileExistsError:
