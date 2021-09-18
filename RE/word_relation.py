@@ -121,16 +121,19 @@ if __name__ == "__main__":
     os.chdir("d:/tmp")
     files = [file for file in os.listdir(".") if (
         file.endswith("xlsx") and "grb" in file)]
-    for file in files:
+    for file in files[:1]:
         df = pd.read_excel(file)
         # print(file)
-        tmp = df[df['中文關鍵詞'].notna()]["中文關鍵詞"]
+        mask = df['中文關鍵詞'].notna()
+        mask2 = df['研究性質'] == "基礎研究"
+        tmp = df[mask]["中文關鍵詞"]
         tmp = tmp.values
         with open(f"{file[:file.rfind('.')]}.txt", "w", encoding="utf-8") as f:
             f.write("\n".join(tmp))
-    files = [file for file in os.listdir(".") if file.endswith(".txt")]
+    files = [file for file in os.listdir(
+        ".") if file.endswith(".txt") and "整理" in file]
     for filename in files:
-        # filename = "keyword.txt"
+        #     # filename = "keyword.txt"
         print(filename)
         with open(filename, "r", encoding="utf-8") as f:
             keywords = f.read().splitlines()
