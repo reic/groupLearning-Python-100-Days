@@ -154,7 +154,7 @@ def main(grb_dir):
     df1["執行單位_new"] = [str(itm[1]).replace("台灣", "臺灣") for itm in df1["執行單位名稱"].str.extract(
         r'(國立|.*法人|行政院)?(.*大學|.*學院|.*研究院|.*學會|.*學校|原子能委員會|食品工業發展研究所|國家同步輻射研究中心|林業試驗所|中醫藥研究所)').values]
     # 輸出整理過的檔案
-    df1.to_excel("{}_整理.xlsx".format(
+    df1.to_excel("{}_MOST_整理.xlsx".format(
         grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
 
     with pd.ExcelWriter(outputfilename, engine='xlsxwriter') as writer:
@@ -211,11 +211,10 @@ def main(grb_dir):
 if __name__ == "__main__":
     # 定義區
     # 設定工作目錄
-    working_dir = "d:/tmp"
+    working_dir = "F:\grb"
     txt_data = "txt"
     os.chdir(working_dir)
-    grb_dirs = ["solarcell", "hydrogen",
-                "storeenergy", 'sysintegrate', 'windturbine']
+    grb_dirs = ["robotmanufacture"]
 
     # # 做圖用的 xlsx 分檔的輸出位置
     grb_figdata = "data2fig"
@@ -230,6 +229,6 @@ if __name__ == "__main__":
         os.mkdir(grb_figdata)
     except FileExistsError:
         print("%s 的目標已存在" % grb_figdata)
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        executor.map(main, grb_dirs)
+    main(grb_dirs[0])
+    # with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    #     executor.map(main, grb_dirs)
