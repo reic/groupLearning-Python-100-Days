@@ -154,9 +154,10 @@ def main(grb_dir):
     df1["執行單位_new"] = [str(itm[1]).replace("台灣", "臺灣") for itm in df1["執行單位名稱"].str.extract(
         r'(國立|.*法人|行政院)?(.*大學|.*學院|.*研究院|.*學會|.*學校|原子能委員會|食品工業發展研究所|國家同步輻射研究中心|林業試驗所|中醫藥研究所)').values]
     # 輸出整理過的檔案
-    df1.to_excel("{}_MOST_整理.xlsx".format(
-        grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
-
+    # df1.to_excel("{}_MOST_整理.xlsx".format(
+    #     grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
+    df1 = pd.read_excel("{}_MOST_整理.xlsx".format(
+        grb_xlsFileName[:grb_xlsFileName.rfind(".")]))
     with pd.ExcelWriter(outputfilename, engine='xlsxwriter') as writer:
         tmp = data_count(df1, "計畫年度")
         maxrow = len(tmp)+1
