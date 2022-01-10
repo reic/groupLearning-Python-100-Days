@@ -154,9 +154,10 @@ def main(grb_dir):
     df1["執行單位_new"] = [str(itm[1]).replace("台灣", "臺灣") for itm in df1["執行單位名稱"].str.extract(
         r'(國立|.*法人|行政院)?(.*大學|.*學院|.*研究院|.*學會|.*學校|原子能委員會|食品工業發展研究所|國家同步輻射研究中心|林業試驗所|中醫藥研究所)').values]
     # 輸出整理過的檔案
-    df1.to_excel("{}_整理.xlsx".format(
-        grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
-
+    # df1.to_excel("{}_MOST_整理.xlsx".format(
+    #     grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
+    df1 = pd.read_excel("{}_MOST_整理.xlsx".format(
+        grb_xlsFileName[:grb_xlsFileName.rfind(".")]))
     with pd.ExcelWriter(outputfilename, engine='xlsxwriter') as writer:
         tmp = data_count(df1, "計畫年度")
         maxrow = len(tmp)+1
@@ -211,11 +212,10 @@ def main(grb_dir):
 if __name__ == "__main__":
     # 定義區
     # 設定工作目錄
-    working_dir = "d:/tmp"
+    working_dir = "F:\grb"
     txt_data = "txt"
     os.chdir(working_dir)
-    grb_dirs = ["solarcell", "hydrogen",
-                "storeenergy", 'sysintegrate', 'windturbine']
+    grb_dirs = ["robotmanufacture"]
 
     # # 做圖用的 xlsx 分檔的輸出位置
     grb_figdata = "data2fig"
@@ -230,86 +230,6 @@ if __name__ == "__main__":
         os.mkdir(grb_figdata)
     except FileExistsError:
         print("%s 的目標已存在" % grb_figdata)
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        executor.map(main, grb_dirs)
-
-    # GRB 下載的分檔 excel 在工作目錄下的 子目標位置
-    # grb_dir = "solarcell"
-    # # GRB 分類合併後的檔案名稱，將放在工作目錄
-    # grb_xlsFileName = f"{grb_dir[:6]}_grb.xlsx"
-    # outputfilename = f"{grb_dir[:6]}_output.xlsx"
-    # # # 做圖用的 xlsx 分檔的輸出位置
-    # # grb_figdata = "data2fig"
-
-    # # 取得下載 xlsx 所有檔案名稱
-    # files = ["{}/{}".format(grb_dir, i) for i in os.listdir(grb_dir)]
-
-    # # # 建立 xlsx 輸出檔的存放目錄
-    # # try:
-    # #     os.mkdir(grb_figdata)
-    # # except FileExistsError:
-    # #     print("%s 的目標已存在" % grb_figdata)
-
-    # # 執行 xslx 合併檔案
-    # df = grb_aggr(files)
-    # # df = pd.read_excel("D:/grb.xlsx")
-
-    # # 資料處理的工作
-    # # 僅取出 國科會、科技部的計畫
-    # filterlist = ["行政院國家科學委員會", "科技部"]
-    # df1 = df[df["計畫主管機關"].isin(filterlist)][['計畫中文名稱', '執行單位名稱', '計畫年度', '計畫主管機關', '研究性質', '研究領域', '本期期間(起)', '本期期間(訖)', '本期經費(千元)',
-    #                                          '計畫主持人', '共同/協同主持人', '中文關鍵詞', '英文關鍵詞']]
-    # # 研究領域，僅取出第一個研究領域 分析
-    # df1["主研究領域"] = [itm[0] for itm in df1["研究領域"].str.split(";").values]
-    # # 執行機構名稱的清理
-    # df1["執行單位_new"] = [str(itm[1]).replace("台灣", "臺灣") for itm in df1["執行單位名稱"].str.extract(
-    #     r'(國立|.*法人|行政院)?(.*大學|.*學院|.*研究院|.*學會|.*學校|原子能委員會|食品工業發展研究所|國家同步輻射研究中心|林業試驗所|中醫藥研究所)').values]
-    # # 輸出整理過的檔案
-    # df1.to_excel("{}_整理.xlsx".format(
-    #     grb_xlsFileName[:grb_xlsFileName.rfind(".")]), index=False)
-
-    # with pd.ExcelWriter(outputfilename, engine='xlsxwriter') as writer:
-    #     tmp = data_count(df1, "計畫年度")
-    #     maxrow = len(tmp)+1
-    #     tmp.to_excel(writer, sheet_name="計畫年度", index=False)
-    #     columnlinechart(writer, "計畫年度", maxrow)
-
-    #     tmp = data_count(df, ["研究性質", "計畫年度"])
-    #     mask = tmp["研究性質"] == "其他"
-    #     tmp[~mask].to_excel(writer, sheet_name="研究性質with年度", index=False)
-
-    #     tmp = data_count(df1, ["研究性質", "計畫年度"])
-    #     mask = tmp["研究性質"] == "其他"
-    #     tmp = tmp[~mask]
-    #     tmp.to_excel(writer, sheet_name="MOST 研究性質with年度", index=False)
-
-    #     groupyear = yeardiv(tmp["計畫年度"].values, 2)
-    #     tmp["計畫年度"] = groupyear
-    #     tmp = pd.DataFrame(pd.pivot_table(tmp, index="研究性質",
-    #                                       values="經費(千元)", columns=["計畫年度"]).to_records())
-    #     sindex = tmp.index.to_list()
-    #     sindex[0] = 4
-    #     tmp.index = sindex
-    #     tmp.sort_index(inplace=True)
-    #     tmp.to_excel(writer, sheet_name="MOST 研究性質 with 年度區間", index=False)
-    #     maxrow = len(tmp)+1
-    #     maxcolumn = len(tmp.columns)
-    #     barchart(writer, "MOST 研究性質 with 年度區間", maxrow, maxcolumn)
-
-    #     tmp = data_count(df1, "主研究領域")
-    #     tmp.sort_values("經費(千元)", ascending=False, inplace=True)
-    #     maxrow = len(tmp)+1
-    #     tmp.to_excel(writer, "主研究領域", index=False)
-    #     if maxrow > 13:
-    #         maxrow = 13
-    #     piechart(writer, "主研究領域", maxrow)
-
-    #     sheetname = "執行單位_new"
-    #     tmp = data_count(df1, sheetname)
-    #     tmp.sort_values("經費(千元)", ascending=False, inplace=True)
-    #     maxrow = len(tmp)+1
-    #     tmp.to_excel(writer, sheet_name=sheetname, index=False)
-    #     if maxrow > 25:
-    #         maxrow = 25
-    #     piechart(writer, sheetname, maxrow)
+    main(grb_dirs[0])
+    # with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    #     executor.map(main, grb_dirs)
